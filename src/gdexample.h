@@ -5,22 +5,23 @@
 
 namespace godot {
 
-class GDExample : public Sprite2D {
-	GDCLASS(GDExample, Sprite2D)
+class GDExample : public Object {
+    GDCLASS(GDExample, Object)
 
-private:
-	double time_passed;
+  private:
+    double time_passed;
 
-protected:
-	static void _bind_methods();
+  protected:
+    static void _bind_methods();
 
-public:
-	GDExample();
-	~GDExample();
+  public:
+    GDExample();
+    ~GDExample();
 
-	void _process(double delta) override;
+    void set_time_passed(const double time_passed);
+    double get_time_passed() const;
 };
 
-}
+} // namespace godot
 
 #endif

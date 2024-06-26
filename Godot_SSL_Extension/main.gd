@@ -3,7 +3,8 @@ extends Node
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	var test = GDExample.new()
-	add_child(test)
+	test.set_time_passed(10.0)
+	print(test.get_time_passed())
 	pass # Replace with function body.
 
 
