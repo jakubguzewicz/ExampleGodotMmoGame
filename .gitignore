@@ -10,6 +10,10 @@ tmp/
 
 #build files
 build/
+external/*
+!external/README.md
+
+*.dblite
 
 # test file with one passed and one failed test
 sanity_check.cpp
@@ -23,6 +27,7 @@ sanity_check.cpp
 *.lo
 *.o
 *.obj
+*.os
 
 # Precompiled Headers
 *.gch
