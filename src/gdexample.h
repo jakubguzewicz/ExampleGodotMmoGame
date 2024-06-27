@@ -5,8 +5,8 @@
 
 namespace godot {
 
-class GDExample : public Object {
-    GDCLASS(GDExample, Object)
+class GDExample : public Node {
+    GDCLASS(GDExample, Node)
 
   private:
     double time_passed;
@@ -20,6 +20,7 @@ class GDExample : public Object {
 
     void set_time_passed(const double time_passed);
     double get_time_passed() const;
+    String test_ssl_linking() const;
 };
 
 } // namespace godot

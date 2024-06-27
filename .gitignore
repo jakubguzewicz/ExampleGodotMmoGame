@@ -47,6 +47,7 @@ sanity_check.cpp
 *.la
 *.a
 *.lib
+*.exp
 
 # Executables
 *.exe
@@ -90,3 +91,4 @@ _deps
 .ionide
 
 # End of https://www.toptal.com/developers/gitignore/api/c++,visualstudiocode,cmake
+.vscode/settings.json
