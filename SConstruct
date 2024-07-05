@@ -13,21 +13,24 @@ env = SConscript("godot-cpp/SConstruct")
 # - LINKFLAGS are for linking flags
 
 # tweak this if you want to use different folders, or more folders, to store your source code in.
-env.Append(CPPPATH=["src/","external/openssl/include/"])
-env.Append(LIBS=["libcrypto", "libssl"], LIBPATH='lib/')
-sources = Glob("src/*.cpp")
+proto = env.Command(["proto/include/game_messages.pb.h", "proto/include/game_messages.pb.cc"], "proto/src/game_messages.proto", "protoc -I=proto/src --cpp_out=proto/include proto/src/game_messages.proto")
+env.Append(CPPPATH=["src/","external/openssl/include/","proto/include/", "external/"])
+env.Append(LIBS=["libcrypto", "libssl", "libprotobuf"], LIBPATH='lib/')
+# sources = [Glob("src/*.cpp")]
+sources = [Glob("src/*.cpp"), Glob("proto/include/*.cc")]
+
 
 if env["platform"] == "macos":
     library = env.SharedLibrary(
-        "Godot_SSL_Extension/bin/libsslextension.{}.{}.framework/libsslextension.{}.{}".format(
+        "Godot_SSL_Extension/bin/game_message_parser.{}.{}.framework/game_message_parser.{}.{}".format(
             env["platform"], env["target"], env["platform"], env["target"]
         ),
         source=sources,
     )
 else:
     library = env.SharedLibrary(
-        "Godot_SSL_Extension/bin/libsslextension{}{}".format(env["suffix"], env["SHLIBSUFFIX"]),
+        "Godot_SSL_Extension/bin/game_message_parser{}{}".format(env["suffix"], env["SHLIBSUFFIX"]),
         source=sources, 
     )
-
+Default(proto)
 Default(library)

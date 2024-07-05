@@ -6,15 +6,15 @@ func _ready():
 	#test.set_time_passed(10.0)
 	#print(test.get_time_passed())
 	
-	var test: GDExample = GDExample.new()
-	test.set_time_passed(10.0)
-	add_child(test)
-	print(test.get_time_passed())
-
-	if test.get_time_passed() == 10.0:
-		print("Hello")
+	var test_parser = GameMessagesParser.new()
+	var dict = test_parser.parse_from_byte_array(PackedByteArray())
 	
-	print(test.test_ssl_linking())
+	var testing = GameMessagesParser.parse_from_byte_array(PackedByteArray())
+	
+	print(testing)
+	
+	print(dict)
+
 	pass # Replace with function body.
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
