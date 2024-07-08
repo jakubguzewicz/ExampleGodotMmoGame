@@ -18,6 +18,7 @@ class GameMessagesParser : public Node {
     GameMessagesParser();
     ~GameMessagesParser();
     static Dictionary parse_from_byte_array(PackedByteArray bytes);
+    static PackedByteArray log_in_request(String username, String password);
 };
 
 } // namespace godot

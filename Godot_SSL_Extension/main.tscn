@@ -6,3 +6,10 @@
 
 [node name="Node" type="Node" parent="."]
 script = ExtResource("1_yoneo")
+
+[node name="LineEdit" type="LineEdit" parent="Node"]
+offset_left = 592.0
+offset_top = 305.0
+offset_right = 927.0
+offset_bottom = 428.0
+text = "loginąć"

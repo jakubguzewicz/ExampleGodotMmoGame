@@ -12,6 +12,10 @@ void GameMessagesParser::_bind_methods() {
     ClassDB::bind_static_method("GameMessagesParser",
                                 D_METHOD("parse_from_byte_array", "bytes"),
                                 &GameMessagesParser::parse_from_byte_array);
+    ClassDB::bind_static_method(
+        "GameMessagesParser",
+        D_METHOD("log_in_request", "username", "password"),
+        &GameMessagesParser::log_in_request);
 }
 
 GameMessagesParser::GameMessagesParser() {
@@ -33,10 +37,11 @@ Dictionary GameMessagesParser::parse_from_byte_array(PackedByteArray bytes) {
 
     switch ((int)result["message_type"]) {
     case game_messages::GameMessage::kLogInRequest: {
+        result["aaa"] = (uint8_t)message.log_in_request().username().data()[5];
         result["username"] =
-            String(message.log_in_request().username().c_str());
+            String::utf8(message.log_in_request().username().data());
         result["password"] =
-            String(message.log_in_request().password().c_str());
+            String::utf8(message.log_in_request().password().data());
         if (message.log_in_request().has_session_id()) {
             result["session_id"] = message.log_in_request().session_id();
         }
@@ -45,7 +50,7 @@ Dictionary GameMessagesParser::parse_from_byte_array(PackedByteArray bytes) {
 
     case game_messages::GameMessage::kLogInResponse: {
         result["username"] =
-            String(message.log_in_response().username().c_str());
+            String::utf8(message.log_in_response().username().c_str());
         if (message.log_in_response().has_user_id()) {
             result["user_id"] = message.log_in_response().user_id();
         }
@@ -102,7 +107,7 @@ Dictionary GameMessagesParser::parse_from_byte_array(PackedByteArray bytes) {
         }
         result["dest_users_id"] = dest_users_id;
         result["message"] =
-            String(message.chat_message_request().message().c_str());
+            String::utf8(message.chat_message_request().message().c_str());
         break;
     }
 
@@ -116,7 +121,7 @@ Dictionary GameMessagesParser::parse_from_byte_array(PackedByteArray bytes) {
         }
         result["dest_users_id"] = dest_users_id;
         result["message"] =
-            String(message.chat_message_response().message().c_str());
+            String::utf8(message.chat_message_response().message().c_str());
         break;
     }
 
@@ -127,4 +132,20 @@ Dictionary GameMessagesParser::parse_from_byte_array(PackedByteArray bytes) {
     }
     }
     return result;
+}
+
+PackedByteArray GameMessagesParser::log_in_request(String username,
+                                                   String password) {
+
+    auto message = game_messages::GameMessage();
+    message.mutable_log_in_request()->set_username(
+        std::string((char *)username.utf8().get_data()));
+    message.mutable_log_in_request()->set_password(
+        std::string((char *)password.utf8().get_data()));
+    auto message_string = message.SerializeAsString();
+    auto init_list = std::initializer_list<uint8_t>(
+        (uint8_t *)message_string.data(),
+        (uint8_t *)(message_string.data() + message_string.length()));
+    auto byte_array = PackedByteArray(init_list);
+    return byte_array;
 }
