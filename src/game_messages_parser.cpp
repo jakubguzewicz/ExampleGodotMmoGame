@@ -138,9 +138,9 @@ PackedByteArray GameMessagesParser::log_in_request(String username,
 
     auto message = game_messages::GameMessage();
     message.mutable_log_in_request()->set_username(
-        std::string((char *)username.utf8().get_data()));
+        std::string(username.utf8().get_data()));
     message.mutable_log_in_request()->set_password(
-        std::string((char *)password.utf8().get_data()));
+        std::string(password.utf8().get_data()));
     auto message_string = message.SerializeAsString();
     auto init_list = std::initializer_list<uint8_t>(
         (uint8_t *)message_string.data(),
