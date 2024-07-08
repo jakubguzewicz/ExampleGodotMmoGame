@@ -37,7 +37,6 @@ Dictionary GameMessagesParser::parse_from_byte_array(PackedByteArray bytes) {
 
     switch ((int)result["message_type"]) {
     case game_messages::GameMessage::kLogInRequest: {
-        result["aaa"] = (uint8_t)message.log_in_request().username().data()[5];
         result["username"] =
             String::utf8(message.log_in_request().username().data());
         result["password"] =
