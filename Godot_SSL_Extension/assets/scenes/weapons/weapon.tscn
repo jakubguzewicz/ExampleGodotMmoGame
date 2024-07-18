@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://cjys8elppwy53"]
+
+[node name="Weapon" type="Node2D"]
+
+[node name="Hitbox" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+
+[node name="RightHand" type="Sprite2D" parent="."]
+
+[node name="LeftHand" type="Sprite2D" parent="."]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("../Hitbox")
+
+[node name="Weapon" type="Sprite2D" parent="."]

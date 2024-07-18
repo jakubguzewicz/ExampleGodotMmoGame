@@ -52,6 +52,8 @@ Dictionary GameMessagesParser::parse_from_byte_array(PackedByteArray bytes) {
             String::utf8(message.log_in_response().username().c_str());
         if (message.log_in_response().has_user_id()) {
             result["user_id"] = message.log_in_response().user_id();
+        } else {
+            result["user_id"] = 0;
         }
         if (message.log_in_response().has_session_id()) {
             result["session_id"] = message.log_in_response().session_id();

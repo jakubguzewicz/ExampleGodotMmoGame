@@ -8,6 +8,9 @@ tmp/
 #cache
 .cache
 
+# exported projects folder
+exported_projects/*
+
 # protobuf build files - lib version has to be the same as compiler version
 *.pb.h
 *.pb.cc

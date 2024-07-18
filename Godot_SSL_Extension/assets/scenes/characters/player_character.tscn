@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://b4loet6wy0t7m"]
+
+[ext_resource type="Script" path="res://assets/scenes/characters/player_character.gd" id="1_mv1ka"]
+[ext_resource type="Texture2D" uid="uid://b8nh1jflfe2o2" path="res://assets/scribble_dungeons/PNG/Double (128px)/Characters/purple_character.png" id="2_hrcui"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_8rt5x"]
+radius = 39.9625
+
+[node name="PlayerCharacter" type="CharacterBody2D"]
+collision_layer = 3
+collision_mask = 3
+motion_mode = 1
+script = ExtResource("1_mv1ka")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_8rt5x")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_hrcui")

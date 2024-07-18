@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://bs3o187re3hyg"]
+
+[ext_resource type="Script" path="res://scenes/log_in/log_in_success.gd" id="1_skoh6"]
+
+[sub_resource type="Theme" id="Theme_jh67l"]
+default_font_size = 120
+
+[node name="LogInSuccess" type="Node2D"]
+script = ExtResource("1_skoh6")
+
+[node name="Label" type="Label" parent="."]
+offset_left = 690.0
+offset_top = 457.0
+offset_right = 1229.0
+offset_bottom = 622.0
+theme = SubResource("Theme_jh67l")
+text = "SUCCESS!"
+horizontal_alignment = 1
+vertical_alignment = 1
