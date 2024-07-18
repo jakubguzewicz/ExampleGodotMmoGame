@@ -1,34 +1,3 @@
-[remap]
-
-importer="texture"
-type="CompressedTexture2D"
-uid="uid://xpv5rtgeb7kt"
-path="res://.godot/imported/weapon_bow_arrow.png-659e3e744b0ce19b4847e18c7ad03174.ctex"
-metadata={
-"vram_texture": false
-}
-
-[deps]
-
-source_file="res://assets/scribble_dungeons/PNG/Default (64px)/Items/weapon_bow_arrow.png"
-dest_files=["res://.godot/imported/weapon_bow_arrow.png-659e3e744b0ce19b4847e18c7ad03174.ctex"]
-
-[params]
-
-compress/mode=0
-compress/high_quality=false
-compress/lossy_quality=0.7
-compress/hdr_compression=1
-compress/normal_map=0
-compress/channel_pack=0
-mipmaps/generate=false
-mipmaps/limit=-1
-roughness/mode=0
-roughness/src_normal=""
-process/fix_alpha_border=true
-process/premult_alpha=false
-process/normal_map_invert_y=false
-process/hdr_as_srgb=false
-process/hdr_clamp_exposure=false
-process/size_limit=0
-detect_3d/compress_to=1
+version https://git-lfs.github.com/spec/v1
+oid sha256:5008c17bc51d26e008d4660c54776b4c3b4f96237fcedffd14991d60fc925436
+size 831

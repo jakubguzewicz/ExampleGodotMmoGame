@@ -1,34 +1,3 @@
-[remap]
-
-importer="texture"
-type="CompressedTexture2D"
-uid="uid://bcal7kl65xkwh"
-path="res://.godot/imported/weapon_axe_double.png-242237640bf054b532f311246e66c27b.ctex"
-metadata={
-"vram_texture": false
-}
-
-[deps]
-
-source_file="res://assets/scribble_dungeons/PNG/Double (128px)/Items/weapon_axe_double.png"
-dest_files=["res://.godot/imported/weapon_axe_double.png-242237640bf054b532f311246e66c27b.ctex"]
-
-[params]
-
-compress/mode=0
-compress/high_quality=false
-compress/lossy_quality=0.7
-compress/hdr_compression=1
-compress/normal_map=0
-compress/channel_pack=0
-mipmaps/generate=false
-mipmaps/limit=-1
-roughness/mode=0
-roughness/src_normal=""
-process/fix_alpha_border=true
-process/premult_alpha=false
-process/normal_map_invert_y=false
-process/hdr_as_srgb=false
-process/hdr_clamp_exposure=false
-process/size_limit=0
-detect_3d/compress_to=1
+version https://git-lfs.github.com/spec/v1
+oid sha256:9d13f29528996cf95aea1f8eb641d47c82e2163136f79724e3297b072b9ea2ea
+size 835

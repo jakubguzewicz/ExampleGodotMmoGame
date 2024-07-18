@@ -1,34 +1,3 @@
-[remap]
-
-importer="texture"
-type="CompressedTexture2D"
-uid="uid://ce3j7yib4fg1k"
-path="res://.godot/imported/red_hand.png-296d73c3c65bff51f651b92d0cb88bb5.ctex"
-metadata={
-"vram_texture": false
-}
-
-[deps]
-
-source_file="res://assets/scribble_dungeons/PNG/Default (64px)/Characters/red_hand.png"
-dest_files=["res://.godot/imported/red_hand.png-296d73c3c65bff51f651b92d0cb88bb5.ctex"]
-
-[params]
-
-compress/mode=0
-compress/high_quality=false
-compress/lossy_quality=0.7
-compress/hdr_compression=1
-compress/normal_map=0
-compress/channel_pack=0
-mipmaps/generate=false
-mipmaps/limit=-1
-roughness/mode=0
-roughness/src_normal=""
-process/fix_alpha_border=true
-process/premult_alpha=false
-process/normal_map_invert_y=false
-process/hdr_as_srgb=false
-process/hdr_clamp_exposure=false
-process/size_limit=0
-detect_3d/compress_to=1
+version https://git-lfs.github.com/spec/v1
+oid sha256:d3eecfab9510aa685d91eec4b952c376a1166ab582615823254771765c24c609
+size 813

@@ -1,34 +1,3 @@
-[remap]
-
-importer="texture"
-type="CompressedTexture2D"
-uid="uid://dv5mlpyxdbla0"
-path="res://.godot/imported/bridge_end.png-dc605b4fc4a62dabb535fe94080b8efb.ctex"
-metadata={
-"vram_texture": false
-}
-
-[deps]
-
-source_file="res://assets/scribble_dungeons/PNG/Default (64px)/bridge_end.png"
-dest_files=["res://.godot/imported/bridge_end.png-dc605b4fc4a62dabb535fe94080b8efb.ctex"]
-
-[params]
-
-compress/mode=0
-compress/high_quality=false
-compress/lossy_quality=0.7
-compress/hdr_compression=1
-compress/normal_map=0
-compress/channel_pack=0
-mipmaps/generate=false
-mipmaps/limit=-1
-roughness/mode=0
-roughness/src_normal=""
-process/fix_alpha_border=true
-process/premult_alpha=false
-process/normal_map_invert_y=false
-process/hdr_as_srgb=false
-process/hdr_clamp_exposure=false
-process/size_limit=0
-detect_3d/compress_to=1
+version https://git-lfs.github.com/spec/v1
+oid sha256:43077c567d0cb387f4dcb27cc18c4cfa4d01808ddbd75a3906ab2fb7b627494a
+size 808

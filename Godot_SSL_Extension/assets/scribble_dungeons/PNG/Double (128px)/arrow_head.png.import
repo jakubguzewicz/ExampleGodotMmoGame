@@ -1,34 +1,3 @@
-[remap]
-
-importer="texture"
-type="CompressedTexture2D"
-uid="uid://ba7fp1pndy66u"
-path="res://.godot/imported/arrow_head.png-59f7fad97fb53e5f6ad458147a600ac1.ctex"
-metadata={
-"vram_texture": false
-}
-
-[deps]
-
-source_file="res://assets/scribble_dungeons/PNG/Double (128px)/arrow_head.png"
-dest_files=["res://.godot/imported/arrow_head.png-59f7fad97fb53e5f6ad458147a600ac1.ctex"]
-
-[params]
-
-compress/mode=0
-compress/high_quality=false
-compress/lossy_quality=0.7
-compress/hdr_compression=1
-compress/normal_map=0
-compress/channel_pack=0
-mipmaps/generate=false
-mipmaps/limit=-1
-roughness/mode=0
-roughness/src_normal=""
-process/fix_alpha_border=true
-process/premult_alpha=false
-process/normal_map_invert_y=false
-process/hdr_as_srgb=false
-process/hdr_clamp_exposure=false
-process/size_limit=0
-detect_3d/compress_to=1
+version https://git-lfs.github.com/spec/v1
+oid sha256:242243cb13d043d6727a5030f3cbc4703cab2a3cea8225772b162580f6d822b4
+size 808

@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.4" tiledversion="1.4.3" name="tilesheet" tilewidth="64" tileheight="64" tilecount="154" columns="14">
- <image source="../Tilesheet/tilesheet.png" width="896" height="704"/>
-</tileset>
+version https://git-lfs.github.com/spec/v1
+oid sha256:7d3075f41c8483000a74768a6b99d869a2d6570190e9eee996f6b58ad927d3d4
+size 247

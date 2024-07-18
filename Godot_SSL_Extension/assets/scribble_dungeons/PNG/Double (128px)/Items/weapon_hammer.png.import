@@ -1,34 +1,3 @@
-[remap]
-
-importer="texture"
-type="CompressedTexture2D"
-uid="uid://c5cjur8a1j88e"
-path="res://.godot/imported/weapon_hammer.png-88169d0435dff8238c340ec5c829cc18.ctex"
-metadata={
-"vram_texture": false
-}
-
-[deps]
-
-source_file="res://assets/scribble_dungeons/PNG/Double (128px)/Items/weapon_hammer.png"
-dest_files=["res://.godot/imported/weapon_hammer.png-88169d0435dff8238c340ec5c829cc18.ctex"]
-
-[params]
-
-compress/mode=0
-compress/high_quality=false
-compress/lossy_quality=0.7
-compress/hdr_compression=1
-compress/normal_map=0
-compress/channel_pack=0
-mipmaps/generate=false
-mipmaps/limit=-1
-roughness/mode=0
-roughness/src_normal=""
-process/fix_alpha_border=true
-process/premult_alpha=false
-process/normal_map_invert_y=false
-process/hdr_as_srgb=false
-process/hdr_clamp_exposure=false
-process/size_limit=0
-detect_3d/compress_to=1
+version https://git-lfs.github.com/spec/v1
+oid sha256:7ca992eb1652d8a6778569a0ba20af8ead03162ff895e6b0f2cebc744afdf9f6
+size 823

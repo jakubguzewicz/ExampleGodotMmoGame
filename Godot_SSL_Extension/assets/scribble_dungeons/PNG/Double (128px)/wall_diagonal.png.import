@@ -1,34 +1,3 @@
-[remap]
-
-importer="texture"
-type="CompressedTexture2D"
-uid="uid://dbq54x6ko4hkw"
-path="res://.godot/imported/wall_diagonal.png-2cb6d08d2ba56383a1d54ce0fff7a80a.ctex"
-metadata={
-"vram_texture": false
-}
-
-[deps]
-
-source_file="res://assets/scribble_dungeons/PNG/Double (128px)/wall_diagonal.png"
-dest_files=["res://.godot/imported/wall_diagonal.png-2cb6d08d2ba56383a1d54ce0fff7a80a.ctex"]
-
-[params]
-
-compress/mode=0
-compress/high_quality=false
-compress/lossy_quality=0.7
-compress/hdr_compression=1
-compress/normal_map=0
-compress/channel_pack=0
-mipmaps/generate=false
-mipmaps/limit=-1
-roughness/mode=0
-roughness/src_normal=""
-process/fix_alpha_border=true
-process/premult_alpha=false
-process/normal_map_invert_y=false
-process/hdr_as_srgb=false
-process/hdr_clamp_exposure=false
-process/size_limit=0
-detect_3d/compress_to=1
+version https://git-lfs.github.com/spec/v1
+oid sha256:bf718dc6c04f179b414263cdc601fae45e8046d67318ab33cf1bb4334ba0163d
+size 817
