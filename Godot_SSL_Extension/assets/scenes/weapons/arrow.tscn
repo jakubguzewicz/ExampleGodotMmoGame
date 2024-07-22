@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://bit10f8dxn4b3"]
+
+[ext_resource type="Script" path="res://assets/scenes/weapons/arrow.gd" id="1_8ie58"]
+[ext_resource type="Texture2D" uid="uid://brtdxvh75f0vp" path="res://assets/scribble_dungeons/PNG/Double (128px)/Items/weapon_arrow.png" id="1_vndww"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_adq7g"]
+size = Vector2(20, 94)
+
+[node name="Arrow" type="CharacterBody2D"]
+collision_layer = 0
+collision_mask = 7
+motion_mode = 1
+script = ExtResource("1_8ie58")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_vndww")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_adq7g")

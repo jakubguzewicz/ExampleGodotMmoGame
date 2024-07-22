@@ -2,12 +2,20 @@ extends Node
 
 @onready var player_character = $PlayerCharacter
 @onready var camera = $PlayerCharacter/Camera2D
+@onready var projectiles = %Projectiles
+
+#This one is not guaranteed, to be changed later
+@onready var weapon = $PlayerCharacter/Weapon
 
 const SPEED = 800.0
 const CAMERA_MOVEMENT_RATIO = 150.0
 
 func _ready():
 	Input.mouse_mode = Input.MOUSE_MODE_CONFINED
+	
+	# Not guaranteed, to be changed later on weapon pickup
+	if weapon.has_signal("spawn_projectile"):
+		weapon.spawn_projectile.connect(spawn_projectile)
 
 func _input(event):
 	
@@ -47,3 +55,6 @@ func _physics_process(delta):
 		player_character.animate_idle()
 
 	player_character.move_and_slide()
+
+func spawn_projectile(projectile:CharacterBody2D):
+	projectiles.add_child(projectile)

@@ -3,7 +3,7 @@
 [ext_resource type="TileSet" uid="uid://celjv6gkrwrr6" path="res://assets/scribble_dungeons/Tiled/terrain.tres" id="1_37fam"]
 [ext_resource type="Script" path="res://assets/scenes/characters/character_controller.gd" id="2_tc6du"]
 [ext_resource type="PackedScene" uid="uid://b4loet6wy0t7m" path="res://assets/scenes/characters/player_character.tscn" id="3_n88dd"]
-[ext_resource type="PackedScene" uid="uid://civsi4g8oi8h1" path="res://assets/scenes/weapons/spear.tscn" id="4_wixkx"]
+[ext_resource type="PackedScene" uid="uid://dfqe6i0aevqkx" path="res://assets/scenes/weapons/bow.tscn" id="4_oi81m"]
 
 [node name="MainGame" type="Node2D"]
 
@@ -29,14 +29,15 @@ format = 2
 script = ExtResource("2_tc6du")
 
 [node name="PlayerCharacter" parent="Characters/ControlledCharacter" instance=ExtResource("3_n88dd")]
-collision_layer = 1
 collision_mask = 2
-
-[node name="Weapon" parent="Characters/ControlledCharacter/PlayerCharacter" instance=ExtResource("4_wixkx")]
 
 [node name="Camera2D" type="Camera2D" parent="Characters/ControlledCharacter/PlayerCharacter"]
 zoom = Vector2(0.5, 0.5)
 
+[node name="Weapon" parent="Characters/ControlledCharacter/PlayerCharacter" instance=ExtResource("4_oi81m")]
+
 [node name="Projectiles" type="Node" parent="."]
+unique_name_in_owner = true
 
 [node name="Interactables" type="Node" parent="."]
+unique_name_in_owner = true
