@@ -1,21 +1,49 @@
 extends Node
 
-@onready var player_character = $PlayerCharacter
-@onready var camera = $PlayerCharacter/Camera2D
-@onready var projectiles = %Projectiles
+@onready var player_character := $PlayerCharacter
+@onready var camera := $PlayerCharacter/Camera2D
+@onready var projectiles := %Projectiles
+@onready var equipment:Equipment = $PlayerCharacter/Equipment
+
+# TODO
+# Temporary node loading, should probably be autoloaded equipment library
+const AXE = preload("res://assets/scenes/weapons/axe.tscn")
+const BOW = preload("res://assets/scenes/weapons/bow.tscn")
+const SPEAR = preload("res://assets/scenes/weapons/spear.tscn")
 
 #This one is not guaranteed, to be changed later
-@onready var weapon = $PlayerCharacter/Weapon
 
 const SPEED = 800.0
 const CAMERA_MOVEMENT_RATIO = 150.0
 
 func _ready():
-	Input.mouse_mode = Input.MOUSE_MODE_CONFINED
+	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+	#Input.mouse_mode = Input.MOUSE_MODE_CONFINED
 	
-	# Not guaranteed, to be changed later on weapon pickup
-	if weapon.has_signal("spawn_projectile"):
-		weapon.spawn_projectile.connect(spawn_projectile)
+	# To be changed later, added for testing
+	equipment.replace_item(0, AXE.instantiate())
+	equipment.replace_item(1, BOW.instantiate())
+	equipment.replace_item(2, SPEAR.instantiate())
+	
+	change_equipped_item(1)
+	
+func change_equipped_item(index:int):
+	if player_character.weapon:
+		disconnect_all_signals(player_character.weapon)
+		player_character.remove_child(player_character.weapon)
+		var new_weapon = equipment.change_selected_item(index)
+		player_character.add_child(new_weapon)
+		player_character.weapon = new_weapon
+		player_character.weapon.character_team = player_character.get_meta("team", -1)
+		if player_character.weapon.has_signal("spawn_projectile"):
+			player_character.weapon.spawn_projectile.connect(spawn_projectile)
+	
+func disconnect_all_signals(signal_caller:Object):
+	var target_connections = self.get_incoming_connections()
+	for sig in signal_caller.get_signal_list():
+		for connection in signal_caller.get_signal_connection_list(sig.name):
+			if connection.callable.get_object() == self:
+				connection.signal.disconnect(connection.callable)
 
 func _input(event):
 	

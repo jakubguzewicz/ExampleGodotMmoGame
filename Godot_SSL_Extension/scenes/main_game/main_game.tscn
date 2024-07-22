@@ -3,7 +3,7 @@
 [ext_resource type="TileSet" uid="uid://celjv6gkrwrr6" path="res://assets/scribble_dungeons/Tiled/terrain.tres" id="1_37fam"]
 [ext_resource type="Script" path="res://assets/scenes/characters/character_controller.gd" id="2_tc6du"]
 [ext_resource type="PackedScene" uid="uid://b4loet6wy0t7m" path="res://assets/scenes/characters/player_character.tscn" id="3_n88dd"]
-[ext_resource type="PackedScene" uid="uid://dfqe6i0aevqkx" path="res://assets/scenes/weapons/bow.tscn" id="4_oi81m"]
+[ext_resource type="PackedScene" uid="uid://cfly73hyt1fte" path="res://assets/scenes/ui/equipment_bar_element.tscn" id="7_em2r2"]
 
 [node name="MainGame" type="Node2D"]
 
@@ -24,6 +24,7 @@ format = 2
 [node name="Sprite2D" type="Sprite2D" parent="."]
 
 [node name="Characters" type="Node" parent="."]
+unique_name_in_owner = true
 
 [node name="ControlledCharacter" type="Node" parent="Characters"]
 script = ExtResource("2_tc6du")
@@ -34,10 +35,50 @@ collision_mask = 2
 [node name="Camera2D" type="Camera2D" parent="Characters/ControlledCharacter/PlayerCharacter"]
 zoom = Vector2(0.5, 0.5)
 
-[node name="Weapon" parent="Characters/ControlledCharacter/PlayerCharacter" instance=ExtResource("4_oi81m")]
-
 [node name="Projectiles" type="Node" parent="."]
 unique_name_in_owner = true
 
 [node name="Interactables" type="Node" parent="."]
 unique_name_in_owner = true
+
+[node name="HUD" type="CanvasLayer" parent="."]
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HUD"]
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.93
+anchor_right = 0.5
+anchor_bottom = 0.93
+offset_left = -240.0
+offset_top = -60.0
+offset_right = 240.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = 0
+
+[node name="PanelContainer" parent="HUD/HBoxContainer" instance=ExtResource("7_em2r2")]
+layout_mode = 2
+
+[node name="PanelContainer2" parent="HUD/HBoxContainer" instance=ExtResource("7_em2r2")]
+layout_mode = 2
+
+[node name="PanelContainer3" parent="HUD/HBoxContainer" instance=ExtResource("7_em2r2")]
+layout_mode = 2
+
+[node name="PanelContainer4" parent="HUD/HBoxContainer" instance=ExtResource("7_em2r2")]
+layout_mode = 2
+
+[node name="PanelContainer5" parent="HUD/HBoxContainer" instance=ExtResource("7_em2r2")]
+layout_mode = 2
+
+[node name="PanelContainer6" parent="HUD/HBoxContainer" instance=ExtResource("7_em2r2")]
+layout_mode = 2
+
+[node name="PanelContainer7" parent="HUD/HBoxContainer" instance=ExtResource("7_em2r2")]
+layout_mode = 2
+
+[node name="PanelContainer8" parent="HUD/HBoxContainer" instance=ExtResource("7_em2r2")]
+layout_mode = 2
+
+[editable path="Characters/ControlledCharacter/PlayerCharacter"]
+[editable path="HUD/HBoxContainer/PanelContainer"]
