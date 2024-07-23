@@ -30,11 +30,8 @@ func _ready():
 func change_equipped_item(index:int):
 	if player_character.weapon:
 		disconnect_all_signals(player_character.weapon)
-		player_character.remove_child(player_character.weapon)
 		var new_weapon = equipment.change_selected_item(index)
-		player_character.add_child(new_weapon)
-		player_character.weapon = new_weapon
-		player_character.weapon.character_team = player_character.get_meta("team", -1)
+		player_character.change_weapon(new_weapon)
 		if player_character.weapon.has_signal("spawn_projectile"):
 			player_character.weapon.spawn_projectile.connect(spawn_projectile)
 	
@@ -51,7 +48,7 @@ func _input(event):
 	if event.is_action_pressed("attack"):
 		player_character.attack()
 		
-	# Camera controls:
+	## Camera controls:
 	# - Mouse
 	if event is InputEventMouseMotion:
 		var viewport_size := get_viewport().get_visible_rect().size
@@ -59,6 +56,7 @@ func _input(event):
 		var rotation := -mouse_position.angle_to(Vector2.UP)
 		player_character.rotation = rotation
 		camera.position = mouse_position.rotated(-rotation)
+		
 	# - Controller
 	if event.is_action("controller_camera"):
 		var camera_vector := Input.get_vector("controller_camera_left","controller_camera_right","controller_camera_up","controller_camera_down")
@@ -66,6 +64,21 @@ func _input(event):
 		player_character.rotation = rotation
 		camera.position = camera_vector.rotated(-rotation) * CAMERA_MOVEMENT_RATIO
 		
+	## Weapon Changing
+	if event.is_action_pressed("weapon_down"):
+		weapon_down()
+	elif event.is_action_pressed("weapon_up"):
+		weapon_up()
+	
+		
+func weapon_up():
+	var new_weapon_index := (equipment.selected_item+1) % equipment.equipment_array.size()
+	player_character.change_weapon(equipment.change_selected_item(new_weapon_index))
+	
+func weapon_down():
+	var new_weapon_index := (equipment.selected_item-1) % equipment.equipment_array.size()
+	player_character.change_weapon(equipment.change_selected_item(new_weapon_index))
+
 
 func _physics_process(delta):
 

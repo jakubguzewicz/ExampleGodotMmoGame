@@ -1,7 +1,6 @@
 extends Weapon
 
 @onready var hitbox = $Hitbox
-@onready var animation_player = $AnimationPlayer
 
 enum AttackState{
 	Attacking,

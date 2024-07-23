@@ -3,9 +3,9 @@
 [ext_resource type="Texture2D" uid="uid://rvmgdmw2yk1f" path="res://assets/scribble_dungeons/PNG/Double (128px)/Items/weapon_axe_large.png" id="1_xxjae"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_m5kcq"]
-bg_color = Color(0.545098, 0.545098, 0.545098, 0.588235)
+bg_color = Color(0.3, 0.3, 0.3, 0.501961)
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_g7hk5"]
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_7p24r"]
 texture = ExtResource("1_xxjae")
 
 [node name="PanelContainer" type="PanelContainer"]
@@ -20,4 +20,4 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_m5kcq")
 
 [node name="ItemSprite" type="Panel" parent="."]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxTexture_g7hk5")
+theme_override_styles/panel = SubResource("StyleBoxTexture_7p24r")

@@ -34,7 +34,8 @@ func _ready():
 
 func _on_projectile_hit(collider:KinematicCollision2D):
 	var collider_object = collider.get_collider()
-	add_collision_exception_with(collider_object)
+	if collider_object is PhysicsBody2D:
+		add_collision_exception_with(collider_object)
 	if collider_object.get_meta("team", -1) == character_team:
 		return
 	if collider_object.get_meta("is_damagable", false):

@@ -6,7 +6,6 @@ signal spawn_projectile(projectile:CharacterBody2D)
 const ARROW = preload("res://assets/scenes/weapons/arrow.tscn")
 
 @onready var hitbox = $Hitbox
-@onready var animation_player = $AnimationPlayer
 
 enum AttackState{
 	Attacking,

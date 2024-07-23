@@ -25,9 +25,11 @@ func animate_idle():
 		weapon.animate_idle()
 	
 func change_weapon(new_weapon:Weapon):
+	weapon.stop_animation()
+	remove_child(weapon)
+	add_child(new_weapon)
 	self.weapon = new_weapon
-	if self.weapon:
-		self.weapon.character_team = get_meta("team", -1)
+	self.weapon.character_team = get_meta("team", -1)
 	
 func deal_damage(damage:float):
 	health -= damage

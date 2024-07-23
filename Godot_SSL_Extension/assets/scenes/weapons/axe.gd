@@ -3,7 +3,6 @@ extends Weapon
 const animation_prefix := "axe"
 
 @onready var hitbox = $Hitbox
-@onready var animation_player = $AnimationPlayer
 
 enum AttackState{
 	Attacking,
