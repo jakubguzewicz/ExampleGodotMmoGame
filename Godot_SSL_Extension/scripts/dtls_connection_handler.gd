@@ -25,7 +25,7 @@ func new_connection() -> void:
 
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func _process(_delta):
 	dtls_peer.poll()
 	if dtls_peer.get_status() == PacketPeerDTLS.STATUS_CONNECTED:
 		dtls_session_connected.emit()

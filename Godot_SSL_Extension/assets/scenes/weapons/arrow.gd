@@ -3,14 +3,14 @@ extends CharacterBody2D
 @export var pierce := 0
 @export var linear_speed := 3000
 @export var damage := 10.0
-@export var range := 1300
+@export var projectile_range := 1300
 
 var character_team := 0
 var _travelled_distance := 0
 
 func _physics_process(delta):
 	_check_collisions(delta)
-	if _travelled_distance > range:
+	if _travelled_distance > projectile_range:
 		queue_free()
 	else:
 		_travelled_distance += linear_speed*delta

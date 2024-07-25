@@ -2,6 +2,7 @@ class_name Equipment
 extends Node
 
 signal equipment_changed(equipment_array:Array, selected_item:int)
+signal item_dropped(item, transform:Transform2D)
 
 const EMPTY = preload("res://assets/scenes/weapons/empty.tscn")
 
@@ -18,9 +19,20 @@ func replace_item(index:int, item) -> Error:
 		printerr("Tried to add equipment item to slot number higher than equipment size")
 		return ERR_PARAMETER_RANGE_ERROR
 	else:
+		drop_item(index)
 		equipment_array[index] = item
 		equipment_changed.emit(equipment_array, selected_item)
 		return OK
+	
+func drop_item(index:int):
+	var item = equipment_array[index]
+	if item is Weapon:
+		# No need to do anything if no weapon was dropped
+		if item.animation_prefix != "empty":
+			item.get_parent().remove_child(item)
+			remove_item(index)
+			item_dropped.emit(item, get_parent().global_transform.rotated_local(randf_range(0.0,2*PI)))
+			
 	
 func pop_item(index:int) -> Object:
 	var removed_item = equipment_array[index]
@@ -29,8 +41,16 @@ func pop_item(index:int) -> Object:
 	return removed_item
 	
 func remove_item(index:int):
-	equipment_array.remove_at(index)
-	equipment_changed.emit(equipment_array, selected_item)
+	replace_with_empty(index)
+	
+func replace_with_empty(index:int):
+	if index < 0 or index > equipment_array.size():
+		printerr("Tried to add equipment item to slot number higher than equipment size")
+		return ERR_PARAMETER_RANGE_ERROR
+	else:
+		equipment_array[index] = EMPTY.instantiate()
+		equipment_changed.emit(equipment_array, selected_item)
+		return OK
 
 func change_selected_item(index:int) -> Weapon:
 	selected_item = index

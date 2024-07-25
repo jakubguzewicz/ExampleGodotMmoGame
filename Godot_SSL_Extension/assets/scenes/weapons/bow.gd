@@ -1,6 +1,7 @@
 extends Weapon
 
-const animation_prefix := "bow"
+func _init():
+	animation_prefix = "bow"
 
 signal spawn_projectile(projectile:CharacterBody2D)
 const ARROW = preload("res://assets/scenes/weapons/arrow.tscn")

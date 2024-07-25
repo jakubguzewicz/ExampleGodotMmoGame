@@ -2,6 +2,7 @@ class_name Weapon
 extends Node2D
 
 @onready var animation_player = $AnimationPlayer
+var animation_prefix := ""
 
 # Do not use this class instances
 # Please make inherited concrete classes

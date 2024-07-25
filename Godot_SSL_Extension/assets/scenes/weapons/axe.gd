@@ -1,6 +1,7 @@
 extends Weapon
 
-const animation_prefix := "axe"
+func _init():
+	animation_prefix = "axe"
 
 @onready var hitbox = $Hitbox
 

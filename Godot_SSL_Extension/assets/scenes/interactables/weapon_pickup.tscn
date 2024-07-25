@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://dws4jeu32a3bn"]
+
+[ext_resource type="Script" path="res://assets/scenes/interactables/weapon_pickup.gd" id="1_kcuar"]
+[ext_resource type="PackedScene" uid="uid://cdrxj81gcbwko" path="res://assets/scenes/weapons/empty.tscn" id="2_yhj0p"]
+
+[node name="WeaponPickup" type="Node2D"]
+script = ExtResource("1_kcuar")
+
+[node name="Miniature" type="Sprite2D" parent="."]
+
+[node name="Weapon" parent="." instance=ExtResource("2_yhj0p")]
+visible = false

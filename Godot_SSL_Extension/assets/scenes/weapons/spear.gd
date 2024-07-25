@@ -1,5 +1,8 @@
 extends Weapon
 
+func _init():
+	animation_prefix = "spear"
+
 @onready var hitbox = $Hitbox
 
 enum AttackState{
