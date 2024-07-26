@@ -499,3 +499,5 @@ z_index = 2
 position = Vector2(-1, 0)
 texture = ExtResource("4_x8dte")
 offset = Vector2(2, -56)
+
+[connection signal="body_entered" from="Hitbox" to="." method="_on_weapon_hit"]

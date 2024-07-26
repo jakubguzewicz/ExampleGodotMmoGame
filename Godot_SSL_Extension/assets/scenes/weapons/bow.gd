@@ -15,6 +15,7 @@ enum AttackState{
 
 @export var can_animate_walking := true
 @export var attack_state := AttackState.Ready
+@export var damage := 20.0
 
 func attack():
 	if attack_state == AttackState.Ready:
@@ -32,6 +33,7 @@ func animate_idle():
 func spawn_projectile_func():
 	var projectile = ARROW.instantiate()
 	projectile.character_team = character_team
+	projectile.damage = damage
 	projectile.rotation = global_rotation
 	projectile.position = global_position + Vector2(0, -50).rotated(projectile.rotation)
 	projectile.velocity = Vector2(0, -projectile.linear_speed).rotated(projectile.rotation)

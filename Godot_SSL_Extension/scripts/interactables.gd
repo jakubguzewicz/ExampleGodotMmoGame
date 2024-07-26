@@ -42,7 +42,7 @@ func add_interactable(item, pickup_transform:=Transform2D()):
 		add_child(new_pickup)
 		new_pickup.transform = pickup_transform
 		new_pickup.remove_child(new_pickup.weapon)
-		new_pickup.add_child(item)
+		new_pickup.add_child.call_deferred(item)
 		new_pickup.weapon = item
 	else:
 		printerr("Tried to add new non-interactable item")

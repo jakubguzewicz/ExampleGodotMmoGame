@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://c227t46ipn5fo"]
+
+[ext_resource type="Script" path="res://assets/scenes/enemies/basic_enemy.gd" id="1_ca2co"]
+[ext_resource type="Texture2D" uid="uid://4hug8o8jh2cj" path="res://assets/scribble_dungeons/PNG/Double (128px)/Characters/red_character.png" id="1_r5efb"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_xx5wy"]
+
+[node name="BasicEnemy" type="CharacterBody2D"]
+collision_mask = 3
+motion_mode = 1
+script = ExtResource("1_ca2co")
+metadata/is_damagable = true
+metadata/team = 1
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(1, 0, 0, 1)
+texture = ExtResource("1_r5efb")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+scale = Vector2(4.34531, 4.34531)
+shape = SubResource("CircleShape2D_xx5wy")

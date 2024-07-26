@@ -12,6 +12,7 @@ enum AttackState{
 
 @export var can_animate_walking := true
 @export var attack_state := AttackState.Ready
+@export var damage := 20.0
 
 func attack():
 	if attack_state == AttackState.Ready:
@@ -25,3 +26,8 @@ func animate_walking():
 func animate_idle():
 	if can_animate_walking:
 		animation_player.play(animation_prefix+"/idle")
+
+
+func _on_weapon_hit(body):
+	if body.get_meta("is_damagable", true):
+		body.deal_damage(damage)

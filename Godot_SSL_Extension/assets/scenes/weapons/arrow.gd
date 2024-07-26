@@ -39,10 +39,10 @@ func _on_projectile_hit(collider:KinematicCollision2D):
 	if collider_object.get_meta("team", -1) == character_team:
 		return
 	if collider_object.get_meta("is_damagable", false):
+		collider_object.deal_damage(damage)
 		if pierce > 0:
 			pierce -= 1
 		else:
 			queue_free()
-		collider_object.deal_damage(damage)
 	else:
 		queue_free()

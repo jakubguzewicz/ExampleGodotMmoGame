@@ -501,6 +501,7 @@ script = ExtResource("2_1vxp7")
 [node name="Hitbox" parent="." index="0"]
 position = Vector2(31.5079, -44.5662)
 rotation = -0.201656
+collision_layer = 0
 monitoring = false
 
 [node name="CollisionShape2D" parent="Hitbox" index="0"]
@@ -532,3 +533,5 @@ position = Vector2(32.4099, -44.6642)
 rotation = -0.201656
 texture = ExtResource("2_7gag5")
 offset = Vector2(-0.907295, 0.00439072)
+
+[connection signal="body_entered" from="Hitbox" to="." method="_on_weapon_hit"]
