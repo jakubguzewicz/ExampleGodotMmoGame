@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://csqhc3cq0ehum"]
+
+[ext_resource type="Script" path="res://assets/scenes/characters/character_controller.gd" id="1_qomcy"]
+[ext_resource type="PackedScene" uid="uid://b4loet6wy0t7m" path="res://assets/scenes/characters/player_character.tscn" id="2_u2dqg"]
+
+[node name="ControlledCharacter" type="Node"]
+script = ExtResource("1_qomcy")
+
+[node name="PlayerCharacter" parent="." instance=ExtResource("2_u2dqg")]
+
+[node name="Camera2D" type="Camera2D" parent="PlayerCharacter"]
+zoom = Vector2(0.5, 0.5)
+
+[editable path="PlayerCharacter"]

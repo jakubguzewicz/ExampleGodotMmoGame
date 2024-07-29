@@ -8,6 +8,8 @@ extends CharacterBody2D
 var character_team := 0
 var _travelled_distance := 0
 
+var entity_id := 0
+
 func _physics_process(delta):
 	_check_collisions(delta)
 	if _travelled_distance > projectile_range:

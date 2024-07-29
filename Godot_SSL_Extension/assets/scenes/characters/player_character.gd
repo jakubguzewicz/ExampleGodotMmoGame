@@ -9,6 +9,8 @@ signal interact(character:CharacterBody2D)
 @export var health := 100.0
 @export var gold := 0
 
+var character_id := 0
+
 var selected_interactable:Interactable
 
 func _ready():

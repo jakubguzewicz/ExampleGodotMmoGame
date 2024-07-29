@@ -8,6 +8,7 @@ var animation_prefix := ""
 # Please make inherited concrete classes
 # Treat this as an abstract class
 var character_team := 0
+var equipment_id := 0
 
 func attack():
 	pass

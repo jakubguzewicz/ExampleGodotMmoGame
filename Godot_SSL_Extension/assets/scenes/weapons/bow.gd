@@ -2,23 +2,20 @@ extends Weapon
 
 func _init():
 	animation_prefix = "bow"
+	equipment_id = EquipmentLibrary.Weapon.BOW
 
 signal spawn_projectile(projectile:CharacterBody2D)
 const ARROW = preload("res://assets/scenes/weapons/arrow.tscn")
 
 @onready var hitbox = $Hitbox
 
-enum AttackState{
-	Attacking,
-	Ready
-}
 
 @export var can_animate_walking := true
-@export var attack_state := AttackState.Ready
+@export var attack_state := EquipmentLibrary.AttackState.READY
 @export var damage := 20.0
 
 func attack():
-	if attack_state == AttackState.Ready:
+	if attack_state == EquipmentLibrary.AttackState.READY:
 		can_animate_walking = false
 		animation_player.play(animation_prefix+"/attack")
 		
@@ -29,6 +26,11 @@ func animate_walking():
 func animate_idle():
 	if can_animate_walking:
 		animation_player.play(animation_prefix+"/idle")
+		
+func animate_attack():
+	## only for server update use, do not use for input reaction
+	can_animate_walking = false
+	animation_player.play(animation_prefix+"/attack")
 
 func spawn_projectile_func():
 	var projectile = ARROW.instantiate()

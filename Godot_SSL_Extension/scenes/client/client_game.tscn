@@ -1,0 +1,22 @@
+[gd_scene load_steps=5 format=3 uid="uid://bdrglfgv82aso"]
+
+[ext_resource type="PackedScene" uid="uid://dghct8l6xqmlf" path="res://scenes/main_game/main_game.tscn" id="1_i7tig"]
+[ext_resource type="Script" path="res://scenes/client/client_game.gd" id="1_r5p8w"]
+[ext_resource type="PackedScene" uid="uid://csqhc3cq0ehum" path="res://scenes/client/controlled_character.tscn" id="2_ixbye"]
+[ext_resource type="PackedScene" uid="uid://rmwjm450h18n" path="res://scenes/client/hud.tscn" id="3_t4s0d"]
+
+[node name="ClientGame" type="Node2D"]
+script = ExtResource("1_r5p8w")
+
+[node name="MainGame" parent="." instance=ExtResource("1_i7tig")]
+unique_name_in_owner = true
+
+[node name="ControlledCharacter" parent="MainGame/Characters" index="0" instance=ExtResource("2_ixbye")]
+
+[node name="HUD" parent="MainGame" instance=ExtResource("3_t4s0d")]
+
+[editable path="MainGame"]
+[editable path="MainGame/Enemies/BasicEnemiesSpawner"]
+[editable path="MainGame/HUD"]
+[editable path="MainGame/HUD/EquipmentBar/PanelContainer"]
+[editable path="MainGame/HUD/EquipmentBar/PanelContainer2"]

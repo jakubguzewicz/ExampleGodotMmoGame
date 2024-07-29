@@ -39,7 +39,7 @@ func find_closest(character:CharacterBody2D) -> Dictionary:
 func add_interactable(item, pickup_transform:=Transform2D()):
 	if item is Weapon:
 		var new_pickup := WEAPON_PICKUP.instantiate()
-		add_child(new_pickup)
+		add_child.call_deferred(new_pickup)
 		new_pickup.transform = pickup_transform
 		new_pickup.remove_child(new_pickup.weapon)
 		new_pickup.add_child.call_deferred(item)

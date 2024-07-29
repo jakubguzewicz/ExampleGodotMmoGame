@@ -2,9 +2,12 @@ extends Node
 
 @onready var player_character := $PlayerCharacter
 @onready var camera := $PlayerCharacter/Camera2D
-@onready var projectiles := %Projectiles
 @onready var equipment:Equipment = $PlayerCharacter/Equipment
-@onready var interactables = %Interactables
+@onready var main_game = %MainGame
+@onready var projectiles := main_game.get_node("Projectiles")
+@onready var interactables := main_game.get_node("Interactables")
+
+signal action_inputted(action:int)
 
 # TODO
 # Temporary node loading, should probably be autoloaded equipment library
@@ -51,8 +54,9 @@ func disconnect_all_signals(signal_caller:Object):
 
 func _input(event):
 	
-	# Handle attack input
+	## Handle attack input
 	if event.is_action_pressed("attack"):
+		action_inputted.emit(ActionTypes.Types.ATTACK)
 		player_character.attack()
 		
 	## Camera controls:
@@ -96,9 +100,11 @@ func _input(event):
 		drop_selected_item()
 		
 	if event.is_action_pressed("interact"):
+		action_inputted.emit(ActionTypes.Types.INTERACT)
 		interactables.interact(player_character)
 	
 func drop_selected_item():
+	action_inputted.emit(ActionTypes.Types.DROP_ITEM)
 	player_character.drop_selected_item()
 
 func weapon_up():
@@ -113,6 +119,7 @@ func weapon_down():
 	
 func change_weapon_to(index:int):
 	change_equipped_item(index)
+	action_inputted.emit(ActionTypes.Types.CHANGE_ITEM)
 	#player_character.change_weapon(equipment.change_selected_item(index))
 
 

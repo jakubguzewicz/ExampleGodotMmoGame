@@ -1,5 +1,4 @@
 extends HBoxContainer
-@onready var characters = %Characters
 
 var selected_item := 0
 

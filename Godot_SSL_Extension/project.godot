@@ -19,6 +19,8 @@ config/icon="res://icon.svg"
 
 DtlsConnection="*res://scripts/dtls_connection_handler.gd"
 GameState="*res://scripts/game_state.gd"
+ActionTypes="*res://scripts/action_types.gd"
+EquipmentLibrary="*res://scripts/equipment/equipment_library.gd"
 
 [display]
 

@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://assets/scenes/characters/player_character.gd" id="1_mv1ka"]
 [ext_resource type="Texture2D" uid="uid://b8nh1jflfe2o2" path="res://assets/scribble_dungeons/PNG/Double (128px)/Characters/purple_character.png" id="2_hrcui"]
-[ext_resource type="Script" path="res://assets/scenes/characters/equipment.gd" id="3_glsq7"]
+[ext_resource type="Script" path="res://scripts/equipment/equipment.gd" id="3_4ng2u"]
 [ext_resource type="PackedScene" uid="uid://cdrxj81gcbwko" path="res://assets/scenes/weapons/empty.tscn" id="4_wbtxe"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_8rt5x"]
@@ -22,6 +22,6 @@ shape = SubResource("CircleShape2D_8rt5x")
 texture = ExtResource("2_hrcui")
 
 [node name="Equipment" type="Node" parent="."]
-script = ExtResource("3_glsq7")
+script = ExtResource("3_4ng2u")
 
 [node name="Weapon" parent="." instance=ExtResource("4_wbtxe")]
