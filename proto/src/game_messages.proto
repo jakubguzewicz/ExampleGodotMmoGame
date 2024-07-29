@@ -31,7 +31,7 @@ message JoinWorldResponse {
 }
 
 message CharacterData {
-    google.protobuf.Any details = 1; // TODO
+    string data = 1; // string => byte_array
 }
 
 message GameAction {
@@ -47,13 +47,13 @@ message EntityState {
 
 message CharacterUpdateData {
     uint32 character_id = 1;
-    EntityState character_state = 2;
+    string character_state = 2; // string => byte_array
 }
 
 // duplicate of ClientUpdateState added for verbosity and a little bit of logic
 message EntityUpdateData {
     uint32 entity_id = 1;
-    EntityState entity_state = 2;
+    string entity_state = 2; // string => byte_array
 }
 
 message ServerUpdateState {
