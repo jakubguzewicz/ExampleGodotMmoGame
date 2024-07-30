@@ -36,14 +36,16 @@ func find_closest(character:CharacterBody2D) -> Dictionary:
 		
 	return {"interactable":closest_interactable, "distance":closest_distance}
 	
-func add_interactable(item, pickup_transform:=Transform2D()):
+func add_interactable(item, pickup_transform:=Transform2D(), entity_id := 0):
 	if item is Weapon:
 		var new_pickup := WEAPON_PICKUP.instantiate()
 		add_child.call_deferred(new_pickup)
+		new_pickup.interactable_id = entity_id
 		new_pickup.transform = pickup_transform
 		new_pickup.remove_child(new_pickup.weapon)
 		new_pickup.add_child.call_deferred(item)
 		new_pickup.weapon = item
+		return new_pickup
 	else:
 		printerr("Tried to add new non-interactable item")
 	

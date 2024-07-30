@@ -3,6 +3,8 @@ extends Node2D
 
 @onready var miniature:Sprite2D = $Miniature
 
+var interactable_id := 0
+
 var highlight:bool = false: set = set_higlight
 
 func set_higlight(value):

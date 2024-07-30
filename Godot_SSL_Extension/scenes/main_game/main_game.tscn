@@ -1,10 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://dghct8l6xqmlf"]
+[gd_scene load_steps=5 format=3 uid="uid://dghct8l6xqmlf"]
 
 [ext_resource type="TileSet" uid="uid://celjv6gkrwrr6" path="res://assets/scribble_dungeons/Tiled/terrain.tres" id="1_37fam"]
 [ext_resource type="Script" path="res://scenes/main_game/main_game.gd" id="1_pugjf"]
 [ext_resource type="Script" path="res://scripts/interactables.gd" id="5_gvsia"]
 [ext_resource type="Script" path="res://scenes/main_game/enemies.gd" id="6_5lfy7"]
-[ext_resource type="PackedScene" uid="uid://dffun6e8d82g0" path="res://assets/scenes/spawners/basic_enemies_spawner.tscn" id="7_todau"]
 
 [node name="MainGame" type="Node2D"]
 script = ExtResource("1_pugjf")
@@ -37,8 +36,3 @@ script = ExtResource("5_gvsia")
 
 [node name="Enemies" type="Node" parent="."]
 script = ExtResource("6_5lfy7")
-
-[node name="BasicEnemiesSpawner" parent="Enemies" instance=ExtResource("7_todau")]
-position = Vector2(1113, -56)
-
-[editable path="Enemies/BasicEnemiesSpawner"]

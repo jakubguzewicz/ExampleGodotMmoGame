@@ -9,6 +9,8 @@ const SPEAR = preload("res://assets/scenes/weapons/spear.tscn")
 
 @export var health := 100.0
 
+var enemy_id := 0
+
 var drop_array := []
 
 func deal_damage(damage:float):

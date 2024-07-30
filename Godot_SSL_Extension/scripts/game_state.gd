@@ -6,6 +6,7 @@ enum State {
 	CONNECTED,
 	LOG_IN_PENDING,
 	LOGGED_IN,
+	JOINED_WORLD
 }
 
 var current_state := State.NOT_CONNECTED

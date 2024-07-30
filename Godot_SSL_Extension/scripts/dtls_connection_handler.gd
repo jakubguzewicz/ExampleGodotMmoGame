@@ -44,3 +44,16 @@ func send_login_message(username:String, password:String) -> void:
 			dtls_session_disconnected.emit()
 		else:
 			await get_tree().create_timer(0.1).timeout
+
+func send_client_update_message(user_id:int, character_id:int, update_data_array:Array):
+	if dtls_peer.get_status() == PacketPeerDTLS.STATUS_CONNECTED:
+		dtls_peer.put_packet(GameMessagesParser.client_update(user_id, character_id, var_to_bytes(update_data_array)))
+		
+func send_join_world_request(user_id:int, character_id:int) -> bool:
+	# returns true if message was sent
+	if dtls_peer.get_status() == PacketPeerDTLS.STATUS_CONNECTED:
+		dtls_peer.put_packet(GameMessagesParser.join_world_request(user_id, character_id))
+		return true
+	else:
+		return false
+	

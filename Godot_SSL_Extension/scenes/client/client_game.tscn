@@ -16,7 +16,6 @@ unique_name_in_owner = true
 [node name="HUD" parent="MainGame" instance=ExtResource("3_t4s0d")]
 
 [editable path="MainGame"]
-[editable path="MainGame/Enemies/BasicEnemiesSpawner"]
 [editable path="MainGame/HUD"]
 [editable path="MainGame/HUD/EquipmentBar/PanelContainer"]
 [editable path="MainGame/HUD/EquipmentBar/PanelContainer2"]
