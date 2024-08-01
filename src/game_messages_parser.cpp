@@ -27,6 +27,11 @@ GameMessagesParser::~GameMessagesParser() {
     // Add your cleanup here.
 }
 
+PackedByteArray string_to_packed_byte_array(std::string bytes) {
+    return PackedByteArray(std::initializer_list<uint8_t>(
+        (uint8_t *)bytes.data(), (uint8_t *)(bytes.data() + bytes.length())));
+}
+
 Dictionary GameMessagesParser::parse_from_byte_array(PackedByteArray bytes) {
     auto message = game_messages::GameMessage();
 
@@ -69,15 +74,26 @@ Dictionary GameMessagesParser::parse_from_byte_array(PackedByteArray bytes) {
 
     case game_messages::GameMessage::kJoinWorldResponse: {
         result["user_id"] = message.join_world_response().user_id();
-        result["character_data"] = Dictionary();
-        // TODO details
+        if (message.join_world_response().has_character_data()) {
+            auto character_data_pba = string_to_packed_byte_array(
+                message.join_world_response().character_data().data());
+            Array character_data_array = character_data_pba.decode_var(0);
+            result["character_data"] = character_data_array;
+        }
         break;
     }
 
     case game_messages::GameMessage::kClientUpdateState: {
         result["user_id"] = message.client_update_state().user_id();
-        result["character_state"] = Dictionary();
-        // TODO parse character_state
+        auto character_state = Dictionary();
+        character_state["character_id"] =
+            message.client_update_state().character_state().character_id();
+        character_state["character_state"] =
+            string_to_packed_byte_array(message.client_update_state()
+                                            .character_state()
+                                            .character_state())
+                .decode_var(0);
+        result["character_state"] = character_state;
         break;
     }
 
@@ -85,14 +101,20 @@ Dictionary GameMessagesParser::parse_from_byte_array(PackedByteArray bytes) {
         auto characters_update_data = Array();
         for (auto element :
              message.server_update_state().characters_update_data()) {
-            characters_update_data.append(Dictionary());
-            // TODO parse character_data
+            auto character_data_dictionary = Dictionary();
+            character_data_dictionary["character_id"] = element.character_id();
+            character_data_dictionary["character_state"] =
+                string_to_packed_byte_array(element.character_state())
+                    .decode_var(0);
+            characters_update_data.append(character_data_dictionary);
         }
         auto entities_update_data = Array();
         for (auto element :
              message.server_update_state().entities_update_data()) {
-            entities_update_data.append(Dictionary());
-            // TODO parse entities_data
+            Array entity_data_array =
+                string_to_packed_byte_array(element.entity_data())
+                    .decode_var(0);
+            entities_update_data.append(entity_data_array);
         }
         result["characters_update_data"] = characters_update_data;
         result["entities_update_data"] = entities_update_data;
@@ -144,9 +166,6 @@ PackedByteArray GameMessagesParser::log_in_request(String username,
     message.mutable_log_in_request()->set_password(
         std::string(password.utf8().get_data()));
     auto message_string = message.SerializeAsString();
-    auto init_list = std::initializer_list<uint8_t>(
-        (uint8_t *)message_string.data(),
-        (uint8_t *)(message_string.data() + message_string.length()));
-    auto byte_array = PackedByteArray(init_list);
+    auto byte_array = string_to_packed_byte_array(message_string);
     return byte_array;
 }

@@ -166,7 +166,7 @@ func _update_database():
 			"transform": [character.position, character.rotation],
 			"equipment": EquipmentLibrary.enums_from_nodes(character.equipment.equipment_array)
 		})
-	
+	not_working_code_so_it_is_easier_to_find
 	## TODO: Send update data to database
 
 func _change_equipped_item(character, index: int):
