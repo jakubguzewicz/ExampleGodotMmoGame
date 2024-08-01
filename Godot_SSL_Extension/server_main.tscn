@@ -1,3 +1,25 @@
-[gd_scene format=3 uid="uid://n1qkfimppf3v"]
+[gd_scene load_steps=4 format=3 uid="uid://n1qkfimppf3v"]
+
+[ext_resource type="Script" path="res://server_main.gd" id="1_2tjhy"]
+[ext_resource type="PackedScene" uid="uid://dghct8l6xqmlf" path="res://scenes/main_game/main_game.tscn" id="2_suqaf"]
+[ext_resource type="PackedScene" uid="uid://dffun6e8d82g0" path="res://assets/scenes/spawners/basic_enemies_spawner.tscn" id="3_avrcv"]
 
 [node name="ServerMain" type="Node2D"]
+script = ExtResource("1_2tjhy")
+
+[node name="MainGame" parent="." instance=ExtResource("2_suqaf")]
+unique_name_in_owner = true
+
+[node name="BasicEnemiesSpawner" parent="MainGame/Enemies" index="0" instance=ExtResource("3_avrcv")]
+position = Vector2(1241, -120)
+
+[node name="BasicEnemiesSpawner2" parent="MainGame/Enemies" index="1" instance=ExtResource("3_avrcv")]
+position = Vector2(-1387, -132)
+
+[node name="BasicEnemiesSpawner3" parent="MainGame/Enemies" index="2" instance=ExtResource("3_avrcv")]
+position = Vector2(-593, -1055)
+
+[node name="BasicEnemiesSpawner4" parent="MainGame/Enemies" index="3" instance=ExtResource("3_avrcv")]
+position = Vector2(623, -1061)
+
+[editable path="MainGame"]

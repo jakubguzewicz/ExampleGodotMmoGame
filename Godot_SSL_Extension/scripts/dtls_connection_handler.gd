@@ -23,7 +23,6 @@ func new_connection() -> void:
 	dtls_peer.connect_to_peer(udp_peer, hostname, tls_options)
 	
 
-	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
 	dtls_peer.poll()
@@ -34,7 +33,7 @@ func _process(_delta):
 	elif dtls_peer.get_status() == PacketPeerDTLS.STATUS_DISCONNECTED:
 		dtls_session_disconnected.emit()
 			
-func send_login_message(username:String, password:String) -> void:
+func send_login_message(username: String, password: String) -> void:
 	while dtls_peer.get_status() != PacketPeerDTLS.STATUS_DISCONNECTED:
 		if dtls_peer.get_status() == PacketPeerDTLS.STATUS_CONNECTED:
 			dtls_log_in_pending.emit()
@@ -45,11 +44,11 @@ func send_login_message(username:String, password:String) -> void:
 		else:
 			await get_tree().create_timer(0.1).timeout
 
-func send_client_update_message(user_id:int, character_id:int, update_data_array:Array):
+func send_client_update_message(user_id: int, character_id: int, update_data_array: Array):
 	if dtls_peer.get_status() == PacketPeerDTLS.STATUS_CONNECTED:
 		dtls_peer.put_packet(GameMessagesParser.client_update(user_id, character_id, var_to_bytes(update_data_array)))
 		
-func send_join_world_request(user_id:int, character_id:int) -> bool:
+func send_join_world_request_message(user_id: int, character_id: int) -> bool:
 	# returns true if message was sent
 	if dtls_peer.get_status() == PacketPeerDTLS.STATUS_CONNECTED:
 		dtls_peer.put_packet(GameMessagesParser.join_world_request(user_id, character_id))
@@ -57,3 +56,8 @@ func send_join_world_request(user_id:int, character_id:int) -> bool:
 	else:
 		return false
 	
+func send_join_world_response_message(user_id: int, character_data):
+	dtls_peer.put_packet(GameMessagesParser.join_world_response(user_id, character_data))
+
+func send_server_update(server_update_dict: Dictionary):
+	dtls_peer.put_packet(GameMessagesParser.server_update(server_update_dict))

@@ -1,6 +1,6 @@
 extends Node2D
 
-var log_in_success:PackedScene = preload("res://scenes/log_in/log_in_success.tscn")
+var log_in_success:PackedScene = SceneManager.scenes_array[SceneManager.Scene.LOG_IN_SUCCESS]
 @onready var log_in_message_label = $LogInMessageLabel
 
 signal started_connecting()

@@ -2,12 +2,12 @@ extends Node
 
 @onready var player_character := $PlayerCharacter
 @onready var camera := $PlayerCharacter/Camera2D
-@onready var equipment:Equipment = $PlayerCharacter/Equipment
+@onready var equipment: Equipment = $PlayerCharacter/Equipment
 @onready var main_game = %MainGame
 @onready var projectiles := main_game.get_node("Projectiles")
 @onready var interactables := main_game.get_node("Interactables")
 
-signal action_inputted(action:int)
+signal action_inputted(action: int)
 
 # TODO
 # Temporary node loading, should probably be autoloaded equipment library
@@ -38,7 +38,7 @@ func _on_player_dropped_item(item, _transform):
 	disconnect_all_signals(item)
 	
 	
-func change_equipped_item(index:int):
+func change_equipped_item(index: int):
 	if player_character.weapon:
 		disconnect_all_signals(player_character.weapon)
 		var new_weapon = equipment.change_selected_item(index)
@@ -46,11 +46,11 @@ func change_equipped_item(index:int):
 		if player_character.weapon.has_signal("spawn_projectile"):
 			player_character.weapon.spawn_projectile.connect(spawn_projectile)
 	
-func disconnect_all_signals(signal_caller:Object):
+func disconnect_all_signals(signal_caller: Object):
 	for sig in signal_caller.get_signal_list():
 		for connection in signal_caller.get_signal_connection_list(sig.name):
 			if connection.callable.get_object() == self:
-				connection.signal.disconnect(connection.callable)
+				connection. signal .disconnect(connection.callable)
 
 func _input(event):
 	
@@ -63,14 +63,14 @@ func _input(event):
 	# - Mouse
 	if event is InputEventMouseMotion:
 		var viewport_size := get_viewport().get_visible_rect().size
-		var mouse_position:Vector2 = (event.position - viewport_size/2)/(viewport_size/2) * CAMERA_MOVEMENT_RATIO
+		var mouse_position: Vector2 = (event.position - viewport_size / 2) / (viewport_size / 2) * CAMERA_MOVEMENT_RATIO
 		var rotation := -mouse_position.angle_to(Vector2.UP)
 		player_character.rotation = rotation
 		camera.position = mouse_position.rotated(-rotation)
 		
 	# - Controller
 	if event.is_action("controller_camera"):
-		var camera_vector := Input.get_vector("controller_camera_left","controller_camera_right","controller_camera_up","controller_camera_down")
+		var camera_vector := Input.get_vector("controller_camera_left", "controller_camera_right", "controller_camera_up", "controller_camera_down")
 		var rotation := -camera_vector.angle_to(Vector2.UP)
 		player_character.rotation = rotation
 		camera.position = camera_vector.rotated(-rotation) * CAMERA_MOVEMENT_RATIO
@@ -108,16 +108,16 @@ func drop_selected_item():
 	player_character.drop_selected_item()
 
 func weapon_up():
-	var new_weapon_index := (equipment.selected_item-1) % equipment.equipment_array.size()
+	var new_weapon_index := (equipment.selected_item - 1) % equipment.equipment_array.size()
 	change_equipped_item(new_weapon_index)
 	#player_character.change_weapon(equipment.change_selected_item(new_weapon_index))
 	
 func weapon_down():
-	var new_weapon_index := (equipment.selected_item+1) % equipment.equipment_array.size()
-	change_equipped_item(new_weapon_index)	
+	var new_weapon_index := (equipment.selected_item + 1) % equipment.equipment_array.size()
+	change_equipped_item(new_weapon_index)
 	#player_character.change_weapon(equipment.change_selected_item(new_weapon_index))
 	
-func change_weapon_to(index:int):
+func change_weapon_to(index: int):
 	change_equipped_item(index)
 	action_inputted.emit(ActionTypes.Types.CHANGE_ITEM)
 	#player_character.change_weapon(equipment.change_selected_item(index))
@@ -128,7 +128,7 @@ func _physics_process(_delta):
 	# Handle movement
 	var speed_vector := Input.get_vector("move_left", "move_right", "move_up", "move_down")
 	if speed_vector:
-		player_character.velocity = speed_vector*SPEED
+		player_character.velocity = speed_vector * SPEED
 	else:
 		player_character.velocity = player_character.velocity.move_toward(Vector2(0.0, 0.0), SPEED)
 		
@@ -154,5 +154,5 @@ func _physics_process(_delta):
 			player_character.selected_interactable.highlight = false
 			player_character.selected_interactable = null
 
-func spawn_projectile(projectile:CharacterBody2D):
+func spawn_projectile(projectile: CharacterBody2D):
 	projectiles.add_child(projectile)

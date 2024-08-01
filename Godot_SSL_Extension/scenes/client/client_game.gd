@@ -3,10 +3,10 @@ extends Node2D
 @onready var controlled_character = $MainGame/Characters/ControlledCharacter
 @onready var main_game = %MainGame
 
-signal change_scene(new_scene:PackedScene)
-signal change_scene_to_node(new_scene_node:Node)
+signal change_scene(new_scene: PackedScene)
+signal change_scene_to_node(new_scene_node: Node)
 
-const LOG_IN_SCENE = preload("res://scenes/log_in/log_in_scene.tscn")
+var LOG_IN_SCENE = SceneManager.scenes_array[SceneManager.Scene.LOG_IN]
 
 @onready var characters_node = main_game.get_node(^"Characters")
 @onready var projectiles_node = main_game.get_node(^"Projectiles")
@@ -21,26 +21,26 @@ func _ready():
 	DtlsConnection.dtls_message_received.connect(process_message)
 	DtlsConnection.dtls_session_disconnected.connect(_process_disconnect)
 	controlled_character.action_inputted.connect(process_input)
-	controlled_character.player_character.change_equipped_item(0)
+	controlled_character.change_equipped_item(0)
 	
-func setup_game(join_world_response_dict:Dictionary):
-	var character_data:Array = join_world_response_dict["character_data"]
+func setup_game(join_world_response_dict: Dictionary):
+	var character_data: Array = join_world_response_dict["character_data"]
 	var character_id = character_data[0]
-	var equipment_array:Array = character_data[1]
-	var character_transform:Array = character_data[2]
+	var equipment_array: Array = character_data[1]
+	var character_transform: Array = character_data[2]
 	
 	controlled_character.player_character.position = character_transform[0]
 	controlled_character.player_character.rotation = character_transform[1]
 	controlled_character.player_character.equipment.equipment_array = EquipmentLibrary.nodes_from_enums(equipment_array)
 	controlled_character.player_character.character_id = character_id
 	
-func process_message(message:PackedByteArray):
+func process_message(message: PackedByteArray):
 	var message_dict := GameMessagesParser.parse_from_byte_array(message)
 	if message_dict["message_type"] == GameMessagesEnums.MessageType.SERVER_UPDATE_STATE:
 		update_game_state(message_dict)
 	pass
 	
-func update_game_state(server_update_message_dict:Dictionary):
+func update_game_state(server_update_message_dict: Dictionary):
 	var characters = characters_node.get_children()
 	var projectiles = projectiles_node.get_children()
 	var interactables = interactables_node.get_children()
@@ -85,7 +85,7 @@ func update_game_state(server_update_message_dict:Dictionary):
 				updated_objects.append(target_character[0])
 				
 	## Clear not updated characters
-	not_updated_objects = characters.filter(func(char): return char not in updated_objects)
+	not_updated_objects = characters.filter(func(character): return character not in updated_objects)
 	for character in not_updated_objects:
 		if character is CharacterBody2D:
 			character.queue_free()
@@ -108,6 +108,7 @@ func update_game_state(server_update_message_dict:Dictionary):
 					new_enemy.position = entity_new_data[0]
 					new_enemy.rotation = entity_new_data[1]
 					new_enemy.velocity = entity_new_data[2]
+					new_enemy.enemy_id = entity_id
 					updated_objects[EntityLibrary.Type.ENEMY].append(new_enemy)
 					enemies_node.add_child(new_enemy)
 				else:
@@ -133,6 +134,7 @@ func update_game_state(server_update_message_dict:Dictionary):
 					new_projectile.position = entity_new_data[0]
 					new_projectile.rotation = entity_new_data[1]
 					new_projectile.velocity = entity_new_data[2]
+					new_projectile.entity_id = entity_id
 					projectiles_node.add_child(new_projectile)
 					updated_objects[EntityLibrary.Type.PROJECTILE].append(new_projectile)
 				else:
@@ -176,7 +178,7 @@ func create_client_update() -> Array:
 	
 	return update_array
 
-func process_input(action:int):
+func process_input(action: int):
 	match action:
 		ActionTypes.Types.ATTACK:
 			if not input_dict.has(ActionTypes.Types.ATTACK):
