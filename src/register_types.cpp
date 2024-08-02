@@ -1,6 +1,7 @@
 #include "register_types.h"
 
 #include "game_messages_parser.h"
+#include "mongo_connection_handler.h"
 
 #include <gdextension_interface.h>
 #include <godot_cpp/core/defs.hpp>
@@ -14,6 +15,7 @@ void initialize_game_message_parser(ModuleInitializationLevel p_level) {
     }
 
     ClassDB::register_class<GameMessagesParser>();
+    ClassDB::register_class<MongoConnectionHandler>();
 }
 
 void uninitialize_game_message_parser(ModuleInitializationLevel p_level) {

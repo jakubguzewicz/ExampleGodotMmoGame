@@ -16,6 +16,21 @@ void GameMessagesParser::_bind_methods() {
         "GameMessagesParser",
         D_METHOD("log_in_request", "username", "password"),
         &GameMessagesParser::log_in_request);
+    ClassDB::bind_static_method(
+        "GameMessagesParser",
+        D_METHOD("client_update", "user_id", "character_id", "character_state"),
+        &GameMessagesParser::client_update);
+    ClassDB::bind_static_method(
+        "GameMessagesParser",
+        D_METHOD("join_world_request", "user_id", "character_id"),
+        &GameMessagesParser::join_world_request);
+    ClassDB::bind_static_method(
+        "GameMessagesParser",
+        D_METHOD("join_world_response", "user_id", "character_data"),
+        &GameMessagesParser::join_world_response);
+    ClassDB::bind_static_method("GameMessagesParser",
+                                D_METHOD("server_update", "server_update_data"),
+                                &GameMessagesParser::server_update);
 }
 
 GameMessagesParser::GameMessagesParser() {
@@ -168,4 +183,66 @@ PackedByteArray GameMessagesParser::log_in_request(String username,
     auto message_string = message.SerializeAsString();
     auto byte_array = string_to_packed_byte_array(message_string);
     return byte_array;
+}
+
+PackedByteArray
+GameMessagesParser::client_update(int user_id, int character_id,
+                                  PackedByteArray character_state) {
+    auto message = game_messages::GameMessage();
+    message.mutable_client_update_state()->set_user_id(user_id);
+    message.mutable_client_update_state()
+        ->mutable_character_state()
+        ->set_character_id(character_id);
+    message.mutable_client_update_state()
+        ->mutable_character_state()
+        ->set_character_state(
+            std::string((char *)character_state.ptr(), character_state.size()));
+    return string_to_packed_byte_array(message.SerializeAsString());
+}
+
+PackedByteArray GameMessagesParser::join_world_request(int user_id,
+                                                       int character_id) {
+    auto message = game_messages::GameMessage();
+    message.mutable_join_world_request()->set_user_id(user_id);
+    message.mutable_join_world_request()->set_character_id(character_id);
+    return string_to_packed_byte_array(message.SerializeAsString());
+}
+
+PackedByteArray
+GameMessagesParser::join_world_response(int user_id,
+                                        PackedByteArray character_data) {
+    auto message = game_messages::GameMessage();
+    message.mutable_join_world_response()->set_user_id(user_id);
+    message.mutable_join_world_response()->mutable_character_data()->set_data(
+        std::string((char *)character_data.ptr(), character_data.size()));
+    return string_to_packed_byte_array(message.SerializeAsString());
+}
+
+PackedByteArray
+GameMessagesParser::server_update(Dictionary server_update_data) {
+    auto message = game_messages::GameMessage();
+    auto server_update = message.mutable_server_update_state();
+    Array characters_update_data = server_update_data["characters_update_data"];
+    Array entities_update_data = server_update_data["entities_update_data"];
+    // Add characters
+    for (size_t i = 0; i < characters_update_data.size(); i++) {
+        Dictionary characters_data_entry = characters_update_data[i];
+        auto message_characters_update_data =
+            server_update->add_characters_update_data();
+        message_characters_update_data->set_character_id(
+            characters_data_entry["character_id"]);
+        PackedByteArray character_state =
+            characters_data_entry["character_state"];
+        message_characters_update_data->set_character_state(
+            std::string((char *)character_state.ptr(), character_state.size()));
+    }
+    // Add entities
+    for (size_t i = 0; i < entities_update_data.size(); i++) {
+        auto message_entity_data = server_update->add_entities_update_data();
+        PackedByteArray entity_data = entities_update_data[i];
+        message_entity_data->set_entity_data(
+            std::string((char *)entity_data.ptr(), entity_data.size()));
+    }
+
+    return string_to_packed_byte_array(message.SerializeAsString());
 }

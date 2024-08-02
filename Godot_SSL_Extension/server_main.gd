@@ -77,7 +77,7 @@ func _process_join_world(user_id: int, character_id: int):
 	if db_response.is_empty():
 		_send_join_world_response(user_id, null)
 	else:
-		var character_data = db_response["character_data"]
+		var character_data: Array = db_response["character_data"]
 		
 		## Add new character or replace currently existing one
 		var filtered_characters := characters_node.get_children().filter(func(character): return character.character_id == character_data[0])
@@ -109,7 +109,7 @@ func _send_server_update():
 			character_state.append(EquipmentLibrary.enums_from_nodes(character.equipment.equipment_array))
 		characters_update_data.append({
 		"character_id": character.character_id,
-		"character_state": character_state
+		"character_state": var_to_bytes(character_state)
 		})
 	var entities_update_data := Array()
 	## Get projectiles state
@@ -121,7 +121,7 @@ func _send_server_update():
 		## TODO: I HATE this piece of code, need to do something better for that when refactoring
 		projectile_data[2] = EntityLibrary.EntityType.ARROW
 		projectile_data[3] = [projectile.position, projectile.rotation, projectile.velocity]
-		entities_update_data.append(projectile_data)
+		entities_update_data.append(var_to_bytes(projectile_data))
 	## Get interactables state
 	for interactable in interactables:
 		var interactable_data := Array()
@@ -131,7 +131,7 @@ func _send_server_update():
 		## TODO: Another code I hate, but right now we only have weapons as interactables
 		interactable_data[2] = interactable.weapon.equipment_id
 		interactable_data[3] = [interactable.position, interactable.rotation]
-		entities_update_data.append(interactable_data)
+		entities_update_data.append(var_to_bytes(interactable_data))
 	## Get enemies state
 	for enemy in enemies:
 		# We should only send info about enemies, not spawners
@@ -143,7 +143,7 @@ func _send_server_update():
 			## TODO: Do I have to say anything right now?
 			enemy_data[2] = EntityLibrary.EntityType.BASIC_ENEMY
 			enemy_data[3] = [enemy.position, enemy.rotation, enemy.velocity]
-			entities_update_data.append(enemy_data)
+			entities_update_data.append(var_to_bytes(enemy_data))
 	
 	## Combine all states to server update dictionary
 	var server_update_dict := {
