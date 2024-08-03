@@ -43,8 +43,16 @@ GameMessagesParser::~GameMessagesParser() {
 }
 
 PackedByteArray string_to_packed_byte_array(std::string bytes) {
-    return PackedByteArray(std::initializer_list<uint8_t>(
-        (uint8_t *)bytes.data(), (uint8_t *)(bytes.data() + bytes.length())));
+    auto result = PackedByteArray();
+    result.resize(bytes.size());
+    std::memcpy(result.ptrw(), bytes.data(), bytes.size());
+
+    // // Stroke of genius that is infortunately MSVC specific :(
+    // return PackedByteArray(std::initializer_list<uint8_t>(
+    //     (uint8_t *)bytes.data(), (uint8_t *)(bytes.data() +
+    //     bytes.length())));
+
+    return result;
 }
 
 Dictionary GameMessagesParser::parse_from_byte_array(PackedByteArray bytes) {
