@@ -39,7 +39,6 @@ void MongoConnectionHandler::_bind_methods() {
 }
 
 MongoConnectionHandler::MongoConnectionHandler() {
-    mongocxx::instance instance{};
     // Initialize any variables here.
 }
 
@@ -48,11 +47,14 @@ MongoConnectionHandler::~MongoConnectionHandler() {
 }
 
 void MongoConnectionHandler::setup_connection(String connection_uri) {
-    auto connection_uri_str = std::string(connection_uri.utf8().get_data());
-    client = mongocxx::client{mongocxx::uri(connection_uri_str)};
+    connection_uri_string = std::string_view(connection_uri.utf8().get_data());
+    mongocxx::instance instance{};
 }
 
 Dictionary MongoConnectionHandler::retrieve_character_data(int character_id) {
+    auto mongo_pool = mongocxx::pool(mongocxx::uri(connection_uri_string));
+    auto entry = mongo_pool.acquire();
+    auto &client = (*entry);
     UtilityFunctions::print("before collection");
     auto characters_data_collection = client["game_data"]["characters_data"];
     UtilityFunctions::print("before find one");
@@ -102,6 +104,9 @@ bool MongoConnectionHandler::update_characters_data(Array update_data) {
 }
 
 bool MongoConnectionHandler::update_character_data(Dictionary character_data) {
+    auto mongo_pool = mongocxx::pool(mongocxx::uri(connection_uri_string));
+    auto entry = mongo_pool.acquire();
+    auto &client = (*entry);
     auto transform_array = Array(character_data["transform"]);
     auto position_vector = Vector2(transform_array[0]);
     auto e = Array(character_data["equipment"]);

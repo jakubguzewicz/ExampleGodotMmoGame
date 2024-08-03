@@ -13,7 +13,9 @@ class MongoConnectionHandler : public Node {
     GDCLASS(MongoConnectionHandler, Node)
 
   private:
-    mongocxx::v_noabi::client client;
+    // mongocxx::v_noabi::client client;
+    std::string connection_uri_string;
+    bool was_db_connected = false;
     bool update_character_data(Dictionary character_data);
 
   protected:
