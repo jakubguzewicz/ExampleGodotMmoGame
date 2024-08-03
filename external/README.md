@@ -1,3 +1,3 @@
 # Needed external libraries:
-- OpenSSL >= 3.2
+- Mongocxx driver 1.10
 - Protobuf 3

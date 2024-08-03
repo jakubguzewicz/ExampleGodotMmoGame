@@ -15,7 +15,7 @@ env = SConscript("godot-cpp/SConstruct")
 # tweak this if you want to use different folders, or more folders, to store your source code in.
 proto = env.Command(["proto/include/game_messages.pb.h", "proto/include/game_messages.pb.cc"], "proto/src/game_messages.proto", "protoc -I=proto/src --cpp_out=proto/include proto/src/game_messages.proto")
 env.Append(CPPPATH=["src/","external/openssl/include/","proto/include/", "external/", "external/mongocxx/include/", "external/mongocxx/include/mongocxx/v_noabi","external/mongocxx/include/bsoncxx/v_noabi"])
-env.Append(LIBS=["libcrypto", "libssl", "libprotobuf","bsoncxx-v_noabi-rhs-x64-v143-md", "mongocxx-v_noabi-rhs-x64-v143-md"], LIBPATH='lib/')
+env.Append(LIBS=["libcrypto", "libssl", "libprotobuf","libbsoncxx", "libmongocxx"], LIBPATH='lib/')
 # sources = [Glob("src/*.cpp")]
 sources = [Glob("src/*.cpp"), Glob("proto/include/*.cc")]
 
