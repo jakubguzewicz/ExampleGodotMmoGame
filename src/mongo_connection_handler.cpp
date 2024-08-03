@@ -60,7 +60,8 @@ Dictionary MongoConnectionHandler::retrieve_character_data(int character_id) {
     auto query_result = characters_data_collection.find_one(
         make_document(kvp("character_id", character_id)));
     UtilityFunctions::print("after find one");
-    auto character_data = Dictionary();
+    auto character_data = Array();
+    character_data.resize(3);
     if (!query_result) {
         UtilityFunctions::print("There was no character like that");
         auto data_to_insert = make_document(
@@ -76,8 +77,7 @@ Dictionary MongoConnectionHandler::retrieve_character_data(int character_id) {
             make_document(kvp("character_id", character_id)));
     }
 
-    character_data["character_id"] =
-        query_result.value()["character_id"].get_int32().value;
+    character_data[0] = query_result.value()["character_id"].get_int32().value;
     auto transform = Array();
     transform.resize(2);
     auto transform_result = query_result.value()["transform"].get_array().value;
@@ -85,7 +85,7 @@ Dictionary MongoConnectionHandler::retrieve_character_data(int character_id) {
     transform[0] = Vector2(transform_result[0].get_double().value,
                            transform_result[1].get_double().value);
     transform[1] = transform_result[2].get_double().value;
-    character_data["transform"] = transform;
+    character_data[2] = transform;
     auto equipment = Array();
     equipment.resize(8);
     auto equipment_result = query_result.value()["equipment"].get_array().value;
@@ -95,8 +95,8 @@ Dictionary MongoConnectionHandler::retrieve_character_data(int character_id) {
         equipment[i] = item.get_int32().value;
         i++;
     }
-    character_data["equipment"] = equipment;
-    return character_data;
+    character_data[1] = equipment;
+    return Dictionary()["character_data"] = character_data;
 }
 
 bool MongoConnectionHandler::update_characters_data(Array update_data) {
