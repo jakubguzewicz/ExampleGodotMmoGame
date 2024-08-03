@@ -20,21 +20,32 @@ func _init():
 	DtlsConnection.port = 4722
 
 func _ready():
+	print("Test Print 1")
+	print(DtlsConnection.server_ip_address)
+	print(DtlsConnection.port)
 	DtlsConnection.new_connection()
 	DtlsConnection.dtls_message_received.connect(_process_message)
 	mongo_connection.setup_connection("mongodb://mongodb:27017")
+	print("Test Print 2")
 	pass
 
 func _physics_process(_delta):
+	if DtlsConnection.dtls_peer.get_status() == PacketPeerDTLS.STATUS_DISCONNECTED:
+		print(DtlsConnection.server_ip_address)
+		print(DtlsConnection.port)
+		DtlsConnection._connect()
 	_send_server_update()
 	if Engine.get_physics_frames() % db_update_frequency == 0:
 		_update_database()
 
 func _process_message(message: PackedByteArray):
 	var message_dict = GameMessagesParser.parse_from_byte_array(message)
+	print("Received message")
 	if message_dict["message_type"] == GameMessagesEnums.MessageType.CLIENT_UPDATE_STATE:
+		print("Client update")
 		_process_client_update(message_dict["character_state"])
 	elif message_dict["message_type"] == GameMessagesEnums.MessageType.JOIN_WORLD_REQUEST:
+		print("Join world!")
 		_process_join_world(message_dict["user_id"], message_dict["character_id"])
 	pass
 
@@ -156,6 +167,7 @@ func _send_server_update():
 
 
 func _send_join_world_response(user_id: int, character_data):
+	print("Sent join world response to "+str(user_id))
 	DtlsConnection.send_join_world_response(user_id, character_data)
 
 func _update_database():

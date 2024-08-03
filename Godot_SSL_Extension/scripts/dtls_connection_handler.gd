@@ -19,9 +19,11 @@ var tls_options := TLSOptions.client(client_cert)
 func new_connection() -> void:
 	udp_peer = PacketPeerUDP.new()
 	dtls_peer = PacketPeerDTLS.new()
+	_connect()
+	
+func _connect():
 	udp_peer.connect_to_host(server_ip_address, port)
 	dtls_peer.connect_to_peer(udp_peer, hostname, tls_options)
-	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):

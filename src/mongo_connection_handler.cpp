@@ -17,6 +17,8 @@
 #include <vector>
 
 #include <godot_cpp/core/class_db.hpp>
+#include <godot_cpp/variant/builtin_vararg_methods.hpp>
+#include <godot_cpp/variant/utility_functions.hpp>
 
 using namespace godot;
 
@@ -52,11 +54,13 @@ void MongoConnectionHandler::setup_connection(String connection_uri) {
 }
 
 Dictionary MongoConnectionHandler::retrieve_character_data(int character_id) {
+    UtilityFunctions::print("before getting data from db");
     auto characters_data_collection = client["game_data"]["characters_data"];
     auto query_result = characters_data_collection.find_one(
         make_document(kvp("character_id", character_id)));
     auto character_data = Dictionary();
     if (!query_result) {
+        UtilityFunctions::print("There was no character like that");
         auto data_to_insert = make_document(
             kvp("character_id", int32_t(character_id)),
             kvp("transform", make_array(0.0, 0.0, 0.0)),
@@ -65,6 +69,7 @@ Dictionary MongoConnectionHandler::retrieve_character_data(int character_id) {
                            int32_t(0), int32_t(0), int32_t(0), int32_t(0))));
         // Need to create a new character
         characters_data_collection.insert_one(data_to_insert.view());
+        UtilityFunctions::print("Inserted new character");
     }
 
     character_data["character_id"] =

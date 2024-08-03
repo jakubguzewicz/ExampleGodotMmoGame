@@ -1,6 +1,7 @@
 #include "game_messages_parser.h"
 #include <game_messages.pb.h>
 #include <godot_cpp/core/class_db.hpp>
+#include <godot_cpp/variant/utility_functions.hpp>
 #include <openssl/rand.h>
 #include <openssl/ssl.h>
 
@@ -100,7 +101,8 @@ Dictionary GameMessagesParser::parse_from_byte_array(PackedByteArray bytes) {
         if (message.join_world_response().has_character_data()) {
             auto character_data_pba = string_to_packed_byte_array(
                 message.join_world_response().character_data().data());
-            Array character_data_array = character_data_pba.decode_var(0);
+            Array character_data_array =
+                UtilityFunctions::bytes_to_var(character_data_pba);
             result["character_data"] = character_data_array;
         }
         break;
@@ -111,11 +113,10 @@ Dictionary GameMessagesParser::parse_from_byte_array(PackedByteArray bytes) {
         auto character_state = Dictionary();
         character_state["character_id"] =
             message.client_update_state().character_state().character_id();
-        character_state["character_state"] =
+        character_state["character_state"] = UtilityFunctions::bytes_to_var(
             string_to_packed_byte_array(message.client_update_state()
                                             .character_state()
-                                            .character_state())
-                .decode_var(0);
+                                            .character_state()));
         result["character_state"] = character_state;
         break;
     }
@@ -127,16 +128,15 @@ Dictionary GameMessagesParser::parse_from_byte_array(PackedByteArray bytes) {
             auto character_data_dictionary = Dictionary();
             character_data_dictionary["character_id"] = element.character_id();
             character_data_dictionary["character_state"] =
-                string_to_packed_byte_array(element.character_state())
-                    .decode_var(0);
+                UtilityFunctions::bytes_to_var(
+                    string_to_packed_byte_array(element.character_state()));
             characters_update_data.append(character_data_dictionary);
         }
         auto entities_update_data = Array();
         for (auto element :
              message.server_update_state().entities_update_data()) {
-            Array entity_data_array =
-                string_to_packed_byte_array(element.entity_data())
-                    .decode_var(0);
+            Array entity_data_array = UtilityFunctions::bytes_to_var(
+                string_to_packed_byte_array(element.entity_data()));
             entities_update_data.append(entity_data_array);
         }
         result["characters_update_data"] = characters_update_data;
