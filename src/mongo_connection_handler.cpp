@@ -40,6 +40,7 @@ void MongoConnectionHandler::_bind_methods() {
 
 MongoConnectionHandler::MongoConnectionHandler() {
     // Initialize any variables here.
+    instance = mongocxx::instance();
 }
 
 MongoConnectionHandler::~MongoConnectionHandler() {
@@ -48,7 +49,6 @@ MongoConnectionHandler::~MongoConnectionHandler() {
 
 void MongoConnectionHandler::setup_connection(String connection_uri) {
     connection_uri_string = std::string_view(connection_uri.utf8().get_data());
-    mongocxx::instance instance{};
 }
 
 Dictionary MongoConnectionHandler::retrieve_character_data(int character_id) {
