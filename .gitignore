@@ -104,6 +104,7 @@ _deps
 
 #needed dynamic libraries
 !Godot_SSL_Extension/bin/*
+!lib/*
 
 # End of https://www.toptal.com/developers/gitignore/api/c++,visualstudiocode,cmake
 .vscode/settings.json
