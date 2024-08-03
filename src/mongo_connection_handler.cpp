@@ -88,10 +88,12 @@ Dictionary MongoConnectionHandler::retrieve_character_data(int character_id) {
     character_data["transform"] = transform;
     auto equipment = Array();
     equipment.resize(8);
-    auto equipment_result = query_result.value()["equipment"].get_array();
-    for (int i = 0; i < equipment_result.value.length() / sizeof(int32_t);
-         i++) {
-        equipment[i] = equipment_result.value[i].get_int32().value;
+    auto equipment_result = query_result.value()["equipment"].get_array().value;
+    auto i = 0;
+    UtilityFunctions::print("I think it's here");
+    for (auto item : equipment_result) {
+        equipment[i] = item.get_int32().value;
+        i++;
     }
     character_data["equipment"] = equipment;
     return character_data;
