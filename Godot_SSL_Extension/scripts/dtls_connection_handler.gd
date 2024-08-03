@@ -60,4 +60,5 @@ func send_join_world_response_message(user_id: int, character_data):
 	dtls_peer.put_packet(GameMessagesParser.join_world_response(user_id, var_to_bytes(character_data)))
 
 func send_server_update(server_update_dict: Dictionary):
-	dtls_peer.put_packet(GameMessagesParser.server_update(server_update_dict))
+	if dtls_peer.get_status() == dtls_peer.STATUS_CONNECTED:
+		dtls_peer.put_packet(GameMessagesParser.server_update(server_update_dict))
