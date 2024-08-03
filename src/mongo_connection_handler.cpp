@@ -47,11 +47,12 @@ MongoConnectionHandler::~MongoConnectionHandler() {
 }
 
 void MongoConnectionHandler::setup_connection(String connection_uri) {
-    instance = mongocxx::instance();
+    // instance = mongocxx::instance();
     connection_uri_string = std::string_view(connection_uri.utf8().get_data());
 }
 
 Dictionary MongoConnectionHandler::retrieve_character_data(int character_id) {
+    auto mongo_instance = mongocxx::instance{};
     auto mongo_pool = mongocxx::pool(mongocxx::uri(connection_uri_string));
     auto entry = mongo_pool.acquire();
     auto &client = (*entry);
@@ -104,6 +105,7 @@ bool MongoConnectionHandler::update_characters_data(Array update_data) {
 }
 
 bool MongoConnectionHandler::update_character_data(Dictionary character_data) {
+    auto mongo_instance = mongocxx::instance{};
     auto mongo_pool = mongocxx::pool(mongocxx::uri(connection_uri_string));
     auto entry = mongo_pool.acquire();
     auto &client = (*entry);

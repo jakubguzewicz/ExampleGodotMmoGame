@@ -14,7 +14,7 @@ class MongoConnectionHandler : public Node {
 
   private:
     // mongocxx::v_noabi::client client;
-    mongocxx::instance instance;
+    // mongocxx::instance instance;
     std::string connection_uri_string;
     bool was_db_connected = false;
     bool update_character_data(Dictionary character_data);
