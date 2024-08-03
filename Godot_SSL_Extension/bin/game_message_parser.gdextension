@@ -26,5 +26,5 @@ android.release.arm64 = "res://bin/game_message_parser.android.template_release.
 
 windows.debug.x86_64 = {"res://bin/libprotobuf.dll" : "", "res://bin/bsoncxx-v_noabi-rhs-x64-v143-md.dll" : "", "res://bin/mongocxx-v_noabi-rhs-x64-v143-md.dll" : "", "res://bin/bson-1.0.dll" : "", "res://bin/mongoc-1.0.dll" : ""}
 windows.release.x86_64 = {"res://bin/libprotobuf.dll" : "", "res://bin/bsoncxx-v_noabi-rhs-x64-v143-md.dll" : "", "res://bin/mongocxx-v_noabi-rhs-x64-v143-md.dll" : "", "res://bin/bson-1.0.dll" : "", "res://bin/mongoc-1.0.dll" : ""}
-linux.debug.x86_64 = {"res://bin/libprotobuf.so" : "", "res://bin/bsoncxx-v_noabi-rhs-x64-v143-md.so" : "", "res://bin/mongocxx-v_noabi-rhs-x64-v143-md.so" : "", "res://bin/bson-1.0.so" : "", "res://bin/mongoc-1.0.so" : ""}
-linux.release.x86_64 = {"res://bin/libprotobuf.so" : "", "res://bin/bsoncxx-v_noabi-rhs-x64-v143-md.so" : "", "res://bin/mongocxx-v_noabi-rhs-x64-v143-md.so" : "", "res://bin/bson-1.0.so" : "", "res://bin/mongoc-1.0.so" : ""}
+linux.debug.x86_64 = {"res://bin/libprotobuf.so" : "", "res://bin/libbsoncxx.so" : "", "res://bin/libmongocxx.so" : "", "res://bin/bson-1.0.so" : "", "res://bin/mongoc-1.0.so" : ""}
+linux.release.x86_64 = {"res://bin/libprotobuf.so" : "", "res://bin/libbsoncxx.so" : "", "res://bin/libmongocxx.so" : "", "res://bin/bson-1.0.so" : "", "res://bin/mongoc-1.0.dll" : ""}
