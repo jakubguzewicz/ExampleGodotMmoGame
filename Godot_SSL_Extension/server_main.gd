@@ -12,6 +12,7 @@ var projectile_id_counter := 3000
 
 # Update database every 60 seconds
 var db_update_frequency := 60 * Engine.physics_ticks_per_second
+var mongo_connection = MongoConnectionHandler.new()
 
 ## Override default client values for server purposes
 func _init():
@@ -21,7 +22,7 @@ func _init():
 func _ready():
 	DtlsConnection.new_connection()
 	DtlsConnection.dtls_message_received.connect(_process_message)
-	## TODO: Connect to DB
+	mongo_connection.setup_connection("mongodb://mongodb:27017")
 	pass
 
 func _physics_process(_delta):
@@ -73,7 +74,7 @@ func _process_client_update(character_update_dict: Dictionary):
 
 func _process_join_world(user_id: int, character_id: int):
 	## Query db for character_data
-	var db_response: Dictionary = Dictionary()
+	var db_response: Dictionary = mongo_connection.retrieve_character_data(character_id)
 	if db_response.is_empty():
 		_send_join_world_response(user_id, null)
 	else:
@@ -166,8 +167,7 @@ func _update_database():
 			"transform": [character.position, character.rotation],
 			"equipment": EquipmentLibrary.enums_from_nodes(character.equipment.equipment_array)
 		})
-	not_working_code_so_it_is_easier_to_find
-	## TODO: Send update data to database
+	mongo_connection.update_characters_data(update_data)
 
 func _change_equipped_item(character, index: int):
 	if character.weapon:

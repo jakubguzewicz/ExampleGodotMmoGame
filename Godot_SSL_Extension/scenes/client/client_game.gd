@@ -195,7 +195,7 @@ func process_input(action: int):
 			input_dict[ActionTypes.Types.CHANGE_ITEM] = controlled_character.player_character.equipment.selected_item
 
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	## Send update data messages to server
 	DtlsConnection.send_client_update_message(GameState.user_id, controlled_character.player_character.character_id, create_client_update())
 	pass

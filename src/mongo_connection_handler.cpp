@@ -25,11 +25,11 @@ using bsoncxx::builder::basic::make_array;
 using bsoncxx::builder::basic::make_document;
 
 void MongoConnectionHandler::_bind_methods() {
-    ClassDB::bind_method(D_METHOD("setup_connection"),
+    ClassDB::bind_method(D_METHOD("setup_connection", "connection_uri"),
                          &MongoConnectionHandler::setup_connection);
-    ClassDB::bind_method(D_METHOD("retrieve_character_data"),
+    ClassDB::bind_method(D_METHOD("retrieve_character_data", "character_id"),
                          &MongoConnectionHandler::retrieve_character_data);
-    ClassDB::bind_method(D_METHOD("update_characters_data"),
+    ClassDB::bind_method(D_METHOD("update_characters_data", "update_data"),
                          &MongoConnectionHandler::update_characters_data);
     // ClassDB::bind_static_method("GameMessagesParser",
     //                             D_METHOD("parse_from_byte_array", "bytes"),

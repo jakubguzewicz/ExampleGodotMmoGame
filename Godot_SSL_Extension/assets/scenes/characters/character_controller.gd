@@ -43,8 +43,8 @@ func change_equipped_item(index: int):
 		disconnect_all_signals(player_character.weapon)
 		var new_weapon = equipment.change_selected_item(index)
 		player_character.change_weapon(new_weapon)
-		if player_character.weapon.has_signal("spawn_projectile"):
-			player_character.weapon.spawn_projectile.connect(spawn_projectile)
+		# if player_character.weapon.has_signal("spawn_projectile"):
+			# player_character.weapon.spawn_projectile.connect(spawn_projectile)
 	
 func disconnect_all_signals(signal_caller: Object):
 	for sig in signal_caller.get_signal_list():
