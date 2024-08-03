@@ -72,22 +72,25 @@ Dictionary MongoConnectionHandler::retrieve_character_data(int character_id) {
         // Need to create a new character
         characters_data_collection.insert_one(data_to_insert.view());
         UtilityFunctions::print("Inserted new character");
+        query_result = characters_data_collection.find_one(
+            make_document(kvp("character_id", character_id)));
     }
 
     character_data["character_id"] =
         query_result.value()["character_id"].get_int32().value;
     auto transform = Array();
     transform.resize(2);
-    auto transform_result = query_result.value()["transform"].get_array();
+    auto transform_result = query_result.value()["transform"].get_array().value;
     // Just beautiful ugliness :)
-    transform[0] = Vector2(transform_result.value[0].get_double().value,
-                           transform_result.value[1].get_double().value);
-    transform[1] = transform_result.value[2].get_double().value;
+    transform[0] = Vector2(transform_result[0].get_double().value,
+                           transform_result[1].get_double().value);
+    transform[1] = transform_result[2].get_double().value;
     character_data["transform"] = transform;
     auto equipment = Array();
     equipment.resize(8);
     auto equipment_result = query_result.value()["equipment"].get_array();
-    for (int i = 0; i < equipment_result.value.length(); i++) {
+    for (int i = 0; i < equipment_result.value.length() / sizeof(int32_t);
+         i++) {
         equipment[i] = equipment_result.value[i].get_int32().value;
     }
     character_data["equipment"] = equipment;
