@@ -23,6 +23,8 @@ build/
 external/*
 !external/README.md
 
+
+
 *.dblite
 
 # test file with one passed and one failed test
@@ -99,6 +101,9 @@ _deps
 # Ignore all local history of files
 .history
 .ionide
+
+#needed dynamic libraries
+!Godot_SSL_Extension/bin/*
 
 # End of https://www.toptal.com/developers/gitignore/api/c++,visualstudiocode,cmake
 .vscode/settings.json
