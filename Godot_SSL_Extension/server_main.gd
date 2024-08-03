@@ -85,7 +85,9 @@ func _process_client_update(character_update_dict: Dictionary):
 
 func _process_join_world(user_id: int, character_id: int):
 	## Query db for character_data
+	print("Retrieving data from db")
 	var db_response: Dictionary = mongo_connection.retrieve_character_data(character_id)
+	print("Retrieved data")
 	if db_response.is_empty():
 		_send_join_world_response(user_id, null)
 	else:

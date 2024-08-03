@@ -48,16 +48,17 @@ MongoConnectionHandler::~MongoConnectionHandler() {
 }
 
 void MongoConnectionHandler::setup_connection(String connection_uri) {
-    auto connection_uri_str =
-        std::string_view(connection_uri.utf8().get_data());
+    auto connection_uri_str = std::string(connection_uri.utf8().get_data());
     client = mongocxx::client{mongocxx::uri(connection_uri_str)};
 }
 
 Dictionary MongoConnectionHandler::retrieve_character_data(int character_id) {
-    UtilityFunctions::print("before getting data from db");
+    UtilityFunctions::print("before collection");
     auto characters_data_collection = client["game_data"]["characters_data"];
+    UtilityFunctions::print("before find one");
     auto query_result = characters_data_collection.find_one(
         make_document(kvp("character_id", character_id)));
+    UtilityFunctions::print("after find one");
     auto character_data = Dictionary();
     if (!query_result) {
         UtilityFunctions::print("There was no character like that");
