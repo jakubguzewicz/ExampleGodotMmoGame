@@ -35,6 +35,7 @@ func setup_game(join_world_response_dict: Dictionary):
 	controlled_character.player_character.character_id = character_id
 	
 func process_message(message: PackedByteArray):
+	#print(message)
 	var message_dict := GameMessagesParser.parse_from_byte_array(message)
 	if message_dict["message_type"] == GameMessagesEnums.MessageType.SERVER_UPDATE_STATE:
 		update_game_state(message_dict)

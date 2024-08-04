@@ -15,7 +15,9 @@ func _ready():
 	
 
 func _process_message(message: PackedByteArray):
+	print(message)
 	var parsed_message := GameMessagesParser.parse_from_byte_array(message)
+	print(parsed_message)
 	if parsed_message["message_type"] == GameMessagesEnums.MessageType.JOIN_WORLD_RESPONSE:
 		if parsed_message.has("character_data"):
 			GameState.current_state = GameState.State.JOINED_WORLD

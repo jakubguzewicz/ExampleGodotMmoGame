@@ -172,6 +172,7 @@ func _send_server_update():
 
 func _send_join_world_response(user_id: int, character_data):
 	print("Sent join world response to "+str(user_id))
+	print(character_data)
 	DtlsConnection.send_join_world_response_message(user_id, character_data)
 
 func _update_database():
@@ -210,7 +211,7 @@ func _add_character(character_data: Array):
 	var character_transform: Array = character_data[2]
 	var new_character = PLAYER_CHARACTER.instantiate()
 	new_character.character_id = character_id
-	new_character.equipment.equipment_array = EquipmentLibrary.nodes_from_enums(equipment_array)
 	new_character.position = character_transform[0]
 	new_character.rotation = character_transform[1]
 	characters_node.add_child(new_character)
+	new_character.equipment.equipment_array = EquipmentLibrary.nodes_from_enums(equipment_array)

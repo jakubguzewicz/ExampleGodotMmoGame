@@ -1,5 +1,7 @@
 extends Weapon
 
+@export var attack_state := EquipmentLibrary.AttackState.READY
+
 func _init():
 	animation_prefix = "empty"
 
