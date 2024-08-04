@@ -232,7 +232,8 @@ GameMessagesParser::join_world_response(int user_id,
     std::cout << character_data_string << std::endl;
     message.mutable_join_world_response()->set_user_id(user_id);
     message.mutable_join_world_response()->mutable_character_data()->set_data(
-        character_data_string);
+        character_data.ptr(), character_data.size());
+
     return string_to_packed_byte_array(message.SerializeAsString());
 }
 
