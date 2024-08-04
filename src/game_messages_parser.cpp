@@ -225,6 +225,10 @@ GameMessagesParser::join_world_response(int user_id,
     UtilityFunctions::print(character_data.size());
     auto character_data_string =
         std::string((char *)character_data.ptrw(), character_data.size());
+    for (auto character : character_data_string) {
+        std::cout << character << ", ";
+    }
+    std::cout << std::endl << character_data_string.length() << std::endl;
     std::cout << character_data_string << std::endl;
     message.mutable_join_world_response()->set_user_id(user_id);
     message.mutable_join_world_response()->mutable_character_data()->set_data(
