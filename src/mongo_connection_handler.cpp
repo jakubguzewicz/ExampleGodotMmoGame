@@ -68,7 +68,7 @@ Dictionary MongoConnectionHandler::retrieve_character_data(int character_id) {
             kvp("character_id", int32_t(character_id)),
             kvp("transform", make_array(0.0, 0.0, 0.0)),
             kvp("equipment",
-                make_array(int32_t(0), int32_t(0), int32_t(0), int32_t(0),
+                make_array(int32_t(1), int32_t(2), int32_t(0), int32_t(0),
                            int32_t(0), int32_t(0), int32_t(0), int32_t(0))));
         // Need to create a new character
         characters_data_collection.insert_one(data_to_insert.view());
@@ -120,7 +120,8 @@ bool MongoConnectionHandler::update_character_data(Dictionary character_data) {
     auto data_to_insert = make_document(
         kvp("character_id", int32_t(character_data["character_id"])),
         kvp("transform",
-            make_array(position_vector.x, position_vector.y, rotation)),
+            make_array((double)position_vector.x, (double)position_vector.y,
+                       (double)rotation)),
         kvp("equipment", make_array(int32_t(e[0]), int32_t(e[1]), int32_t(e[2]),
                                     int32_t(e[3]), int32_t(e[4]), int32_t(e[5]),
                                     int32_t(e[6]), int32_t(e[7]))));

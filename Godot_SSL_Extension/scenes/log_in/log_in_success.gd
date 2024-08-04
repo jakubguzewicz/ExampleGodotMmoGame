@@ -22,7 +22,7 @@ func _process_message(message: PackedByteArray):
 		if parsed_message.has("character_data"):
 			GameState.current_state = GameState.State.JOINED_WORLD
 			var new_scene_node = CLIENT_GAME.instantiate()
-			new_scene_node.setup_game(parsed_message)
+			new_scene_node.join_world_response = parsed_message
 			change_scene_to_node.emit(new_scene_node)
 		else:
 			# I honestly don't know what should happen in this case in this exact game

@@ -9,12 +9,13 @@ const WEAPON_PICKUP = preload("res://assets/scenes/interactables/weapon_pickup.t
 var interactable_id_index := 1000
 
 func _ready():
-	var test_axe_pickup: WeaponPickup = WEAPON_PICKUP.instantiate()
-	var axe: Weapon = AXE.instantiate()
-	add_child(test_axe_pickup)
-	test_axe_pickup.remove_child(test_axe_pickup.weapon)
-	test_axe_pickup.add_child(axe)
-	test_axe_pickup.weapon = axe
+	#var test_axe_pickup: WeaponPickup = WEAPON_PICKUP.instantiate()
+	#var axe: Weapon = AXE.instantiate()
+	#add_child(test_axe_pickup)
+	#test_axe_pickup.remove_child(test_axe_pickup.weapon)
+	#test_axe_pickup.add_child(axe)
+	#test_axe_pickup.weapon = axe
+	pass
 
 
 func interact(character: CharacterBody2D):
@@ -42,7 +43,7 @@ func find_closest(character: CharacterBody2D) -> Dictionary:
 func add_interactable(item, pickup_transform := Transform2D(), entity_id := 0):
 	if item is Weapon:
 		var new_pickup := WEAPON_PICKUP.instantiate()
-		add_child.call_deferred(new_pickup)
+		add_child(new_pickup)
 		if entity_id != 0:
 			new_pickup.interactable_id = entity_id
 		else:
@@ -50,7 +51,8 @@ func add_interactable(item, pickup_transform := Transform2D(), entity_id := 0):
 			interactable_id_index += 1
 		new_pickup.transform = pickup_transform
 		new_pickup.remove_child(new_pickup.weapon)
-		new_pickup.add_child.call_deferred(item)
+		new_pickup.add_child(item)
+		#add_child(new_pickup)
 		new_pickup.weapon = item
 		return new_pickup
 	else:

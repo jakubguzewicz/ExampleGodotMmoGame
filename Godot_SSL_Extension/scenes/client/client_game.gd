@@ -8,6 +8,8 @@ signal change_scene_to_node(new_scene_node: Node)
 
 var LOG_IN_SCENE = SceneManager.scenes_array[SceneManager.Scene.LOG_IN]
 
+var join_world_response
+
 @onready var characters_node = main_game.get_node(^"Characters")
 @onready var projectiles_node = main_game.get_node(^"Projectiles")
 @onready var interactables_node = main_game.get_node(^"Interactables")
@@ -18,6 +20,7 @@ const PLAYER_CHARACTER = preload("res://assets/scenes/characters/player_characte
 var input_dict := Dictionary()
 
 func _ready():
+	setup_game(join_world_response)
 	DtlsConnection.dtls_message_received.connect(process_message)
 	DtlsConnection.dtls_session_disconnected.connect(_process_disconnect)
 	controlled_character.action_inputted.connect(process_input)
