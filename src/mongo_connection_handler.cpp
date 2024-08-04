@@ -96,7 +96,9 @@ Dictionary MongoConnectionHandler::retrieve_character_data(int character_id) {
         i++;
     }
     character_data[1] = equipment;
-    return Dictionary()["character_data"] = character_data;
+    auto result = Dictionary();
+    result["character_data"] = character_data;
+    return result;
 }
 
 bool MongoConnectionHandler::update_characters_data(Array update_data) {

@@ -86,12 +86,14 @@ func _process_client_update(character_update_dict: Dictionary):
 func _process_join_world(user_id: int, character_id: int):
 	## Query db for character_data
 	print("Retrieving data from db")
-	var db_response: Array = mongo_connection.retrieve_character_data(character_id)
+	var db_response: Dictionary = mongo_connection.retrieve_character_data(character_id)
+	print(db_response)
 	print("Retrieved data")
 	if db_response.is_empty():
 		_send_join_world_response(user_id, null)
 	else:
 		var character_data: Array = db_response["character_data"]
+		print(character_data)
 		
 		## Add new character or replace currently existing one
 		var filtered_characters := characters_node.get_children().filter(func(character): return character.character_id == character_data[0])
@@ -170,7 +172,7 @@ func _send_server_update():
 
 func _send_join_world_response(user_id: int, character_data):
 	print("Sent join world response to "+str(user_id))
-	DtlsConnection.send_join_world_response(user_id, character_data)
+	DtlsConnection.send_join_world_response_message(user_id, character_data)
 
 func _update_database():
 	## We only need to update character position and equipment as of now
