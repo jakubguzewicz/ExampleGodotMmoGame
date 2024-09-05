@@ -1,5 +1,6 @@
 # Example Godot MMO game
 This is the repository of example MMO game made in godot that uses Protobuf for message serialization and MongoDB as database.  
+It is meant to be used with the repository under link: <https://github.com/jakubguzewicz/GameServer>.
 
 This repository uses scons as build tool.
 
